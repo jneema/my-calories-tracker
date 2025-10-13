@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "my-calorie-tracker",
+    "scheme": "my-calorie-tracker",
     "slug": "my-calorie-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
