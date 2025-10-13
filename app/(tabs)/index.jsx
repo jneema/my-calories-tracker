@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Circle } from "react-native-svg";
+import { router } from "expo-router";
 
 const HomePage = () => {
   const date = new Date();
@@ -91,9 +87,7 @@ const HomePage = () => {
       icon: "moon",
       iconColor: "#5856D6",
       totalCalories: 250,
-      foodItems: [
-        { name: "Salmon with Vegetables", calories: 250 },
-      ],
+      foodItems: [{ name: "Salmon with Vegetables", calories: 250 }],
     },
   ];
 
@@ -103,21 +97,21 @@ const HomePage = () => {
   const waterPercentage = Math.round((waterIntake / waterGoal) * 100);
 
   const toggleMeal = (mealId) => {
-    setExpandedMeals(prev => ({
+    setExpandedMeals((prev) => ({
       ...prev,
-      [mealId]: !prev[mealId]
+      [mealId]: !prev[mealId],
     }));
   };
 
   const addWaterGlass = () => {
     if (waterIntake < waterGoal) {
-      setWaterIntake(prev => prev + 1);
+      setWaterIntake((prev) => prev + 1);
     }
   };
 
   const removeWaterGlass = () => {
     if (waterIntake > 0) {
-      setWaterIntake(prev => prev - 1);
+      setWaterIntake((prev) => prev - 1);
     }
   };
 
@@ -252,7 +246,7 @@ const HomePage = () => {
           <TouchableOpacity
             className="flex-1 bg-black rounded-xl p-4 flex-row items-center justify-center"
             activeOpacity={0.7}
-            onPress={() => console.log("Add Food pressed")}
+            onPress={() => router.push("/log")}
           >
             <Ionicons name="add-circle-outline" size={20} color="white" />
             <Text className="text-white font-semibold text-base ml-2">
@@ -270,10 +264,89 @@ const HomePage = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Meals Section */}
+        <View className="mt-6">
+          <Text className="font-bold text-2xl mb-3">Meals</Text>
+
+          {meals.map((meal) => (
+            <TouchableOpacity
+              key={meal.id}
+              className="bg-white rounded-xl p-4 mb-3"
+              activeOpacity={0.7}
+              onPress={() => toggleMeal(meal.id)}
+            >
+              <View className="flex-row items-center justify-between">
+                <View className="flex-row items-center flex-1">
+                  <View
+                    className="w-10 h-10 rounded-full items-center justify-center"
+                    style={{ backgroundColor: `${meal.iconColor}20` }}
+                  >
+                    <Ionicons
+                      name={meal.icon}
+                      size={20}
+                      color={meal.iconColor}
+                    />
+                  </View>
+
+                  <View className="ml-3 flex-1">
+                    <Text className="font-semibold text-base">{meal.name}</Text>
+                    <Text className="text-gray-500 text-sm">{meal.time}</Text>
+                  </View>
+                </View>
+
+                <View className="flex-row items-center">
+                  <Text className="font-semibold text-base mr-2">
+                    {meal.totalCalories} cal
+                  </Text>
+                  <Ionicons
+                    name={
+                      expandedMeals[meal.id] ? "chevron-up" : "chevron-down"
+                    }
+                    size={20}
+                    color="#9CA3AF"
+                  />
+                </View>
+              </View>
+
+              {expandedMeals[meal.id] && meal.foodItems && (
+                <View className="mt-3 pt-3 border-t border-gray-100">
+                  {meal.foodItems.map((food, index) => (
+                    <View
+                      key={index}
+                      className="flex-row justify-between items-center py-2"
+                    >
+                      <Text className="text-gray-700 flex-1">{food.name}</Text>
+                      <Text className="text-gray-500 text-sm">
+                        {food.calories} cal
+                      </Text>
+                    </View>
+                  ))}
+
+                  <TouchableOpacity
+                    className="mt-2 py-2 flex-row items-center justify-center"
+                    onPress={() => console.log(`Add to ${meal.name}`)}
+                  >
+                    <Ionicons
+                      name="add-circle-outline"
+                      size={18}
+                      color="#FF5F00"
+                    />
+                    <Text
+                      className="text-sm font-medium ml-1"
+                      style={{ color: "#FF5F00" }}
+                    >
+                      Add Food
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </TouchableOpacity>
+          ))}
+        </View>
         {/* Water Intake Section */}
         <View className="mt-6">
           <Text className="font-bold text-2xl mb-3">Water Intake</Text>
-          
+
           <LinearGradient
             colors={["#00C9A7", "#00A8E8"]}
             start={{ x: 0, y: 0 }}
@@ -328,13 +401,14 @@ const HomePage = () => {
                     width: 40,
                     height: 40,
                     borderRadius: 8,
-                    backgroundColor: index < waterIntake ? "white" : "rgba(255,255,255,0.2)",
+                    backgroundColor:
+                      index < waterIntake ? "white" : "rgba(255,255,255,0.2)",
                   }}
                 >
-                  <Ionicons 
-                    name={index < waterIntake ? "water" : "water-outline"} 
-                    size={20} 
-                    color={index < waterIntake ? "#00C9A7" : "white"} 
+                  <Ionicons
+                    name={index < waterIntake ? "water" : "water-outline"}
+                    size={20}
+                    color={index < waterIntake ? "#00C9A7" : "white"}
                   />
                 </View>
               ))}
@@ -349,7 +423,11 @@ const HomePage = () => {
                 disabled={waterIntake === 0}
                 style={{ opacity: waterIntake === 0 ? 0.5 : 1 }}
               >
-                <Ionicons name="remove-circle-outline" size={20} color="white" />
+                <Ionicons
+                  name="remove-circle-outline"
+                  size={20}
+                  color="white"
+                />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -360,7 +438,10 @@ const HomePage = () => {
                 style={{ opacity: waterIntake >= waterGoal ? 0.7 : 1 }}
               >
                 <Ionicons name="add-circle" size={20} color="#00C9A7" />
-                <Text className="font-semibold ml-2" style={{ color: "#00C9A7" }}>
+                <Text
+                  className="font-semibold ml-2"
+                  style={{ color: "#00C9A7" }}
+                >
                   Add Glass
                 </Text>
               </TouchableOpacity>
@@ -375,73 +456,6 @@ const HomePage = () => {
               </View>
             )}
           </LinearGradient>
-        </View>
-
-        {/* Meals Section */}
-        <View className="mt-6">
-          <Text className="font-bold text-2xl mb-3">Meals</Text>
-          
-          {meals.map((meal) => (
-            <TouchableOpacity
-              key={meal.id}
-              className="bg-white rounded-xl p-4 mb-3"
-              activeOpacity={0.7}
-              onPress={() => toggleMeal(meal.id)}
-            >
-              <View className="flex-row items-center justify-between">
-                <View className="flex-row items-center flex-1">
-                  <View
-                    className="w-10 h-10 rounded-full items-center justify-center"
-                    style={{ backgroundColor: `${meal.iconColor}20` }}
-                  >
-                    <Ionicons name={meal.icon} size={20} color={meal.iconColor} />
-                  </View>
-                  
-                  <View className="ml-3 flex-1">
-                    <Text className="font-semibold text-base">{meal.name}</Text>
-                    <Text className="text-gray-500 text-sm">{meal.time}</Text>
-                  </View>
-                </View>
-
-                <View className="flex-row items-center">
-                  <Text className="font-semibold text-base mr-2">
-                    {meal.totalCalories} cal
-                  </Text>
-                  <Ionicons 
-                    name={expandedMeals[meal.id] ? "chevron-up" : "chevron-down"} 
-                    size={20} 
-                    color="#9CA3AF" 
-                  />
-                </View>
-              </View>
-
-              {expandedMeals[meal.id] && meal.foodItems && (
-                <View className="mt-3 pt-3 border-t border-gray-100">
-                  {meal.foodItems.map((food, index) => (
-                    <View 
-                      key={index} 
-                      className="flex-row justify-between items-center py-2"
-                    >
-                      <Text className="text-gray-700 flex-1">{food.name}</Text>
-                      <Text className="text-gray-500 text-sm">
-                        {food.calories} cal
-                      </Text>
-                    </View>
-                  ))}
-                  
-                  <TouchableOpacity 
-                    className="mt-2 py-2 flex-row items-center justify-center"
-                    onPress={() => console.log(`Add to ${meal.name}`)}
-                  >
-                    <Ionicons name="add-circle-outline" size={18} color="#FF5F00" />
-                    <Text className="text-sm font-medium ml-1" style={{ color: "#FF5F00" }}>
-                      Add Food
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
