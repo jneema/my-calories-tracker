@@ -14,8 +14,8 @@ A simple React Native app built with Expo Router for tracking daily calorie inta
 * Local data storage
 
 ### Setup
-git clone https://github.com/<your-username>/my-calorie-tracker.git
-cd my-calorie-tracker
-npm install
-npx expo start
+* git clone https://github.com/jneema/my-calorie-tracker.git
+* cd my-calorie-tracker
+* npm install
+* npx expo start
 
