@@ -22,13 +22,13 @@ const Stats = () => {
       weightChange: -0.6,
       weightGoal: 145,
       chartData: [
-        { label: "Sun", value: 2650 },
-        { label: "Mon", value: 3100 },
-        { label: "Tue", value: 2450 },
-        { label: "Wed", value: 3200 },
-        { label: "Thu", value: 2300 },
-        { label: "Fri", value: 2900 },
-        { label: "Sat", value: 2250 },
+        { label: "Sun", value: 2650, carbs: 300, protein: 120, fats: 80 },
+        { label: "Mon", value: 3100, carbs: 350, protein: 130, fats: 90 },
+        { label: "Tue", value: 2450, carbs: 280, protein: 110, fats: 70 },
+        { label: "Wed", value: 3200, carbs: 360, protein: 140, fats: 95 },
+        { label: "Thu", value: 2300, carbs: 270, protein: 100, fats: 65 },
+        { label: "Fri", value: 2900, carbs: 330, protein: 125, fats: 85 },
+        { label: "Sat", value: 2250, carbs: 260, protein: 105, fats: 60 },
       ].slice(0, currentDay + 1),
       currentIndex: currentDay,
     },
@@ -39,11 +39,11 @@ const Stats = () => {
       weightChange: -2.8,
       weightGoal: 145,
       chartData: [
-        { label: "W1", value: 18000 },
-        { label: "W2", value: 19600 },
-        { label: "W3", value: 17500 },
-        { label: "W4", value: 20500 },
-        { label: "W5", value: 18200 },
+        { label: "W1", value: 18000, carbs: 2100, protein: 850, fats: 600 },
+        { label: "W2", value: 19600, carbs: 2300, protein: 900, fats: 650 },
+        { label: "W3", value: 17500, carbs: 2050, protein: 820, fats: 580 },
+        { label: "W4", value: 20500, carbs: 2400, protein: 950, fats: 700 },
+        { label: "W5", value: 18200, carbs: 2150, protein: 860, fats: 610 },
       ].slice(0, currentWeekOfMonth),
       currentIndex: currentWeekOfMonth - 1,
     },
@@ -54,18 +54,18 @@ const Stats = () => {
       weightChange: -12,
       weightGoal: 145,
       chartData: [
-        { label: "Jan", value: 78500 },
-        { label: "Feb", value: 81200 },
-        { label: "Mar", value: 76000 },
-        { label: "Apr", value: 83500 },
-        { label: "May", value: 75000 },
-        { label: "Jun", value: 82000 },
-        { label: "Jul", value: 78000 },
-        { label: "Aug", value: 80500 },
-        { label: "Sep", value: 76500 },
-        { label: "Oct", value: 84500 },
-        { label: "Nov", value: 79500 },
-        { label: "Dec", value: 77000 },
+        { label: "Jan", value: 78500, carbs: 9400, protein: 3750, fats: 2600 },
+        { label: "Feb", value: 81200, carbs: 9700, protein: 3900, fats: 2700 },
+        { label: "Mar", value: 76000, carbs: 9100, protein: 3600, fats: 2500 },
+        { label: "Apr", value: 83500, carbs: 10000, protein: 4000, fats: 2800 },
+        { label: "May", value: 75000, carbs: 9000, protein: 3500, fats: 2450 },
+        { label: "Jun", value: 82000, carbs: 9800, protein: 3950, fats: 2700 },
+        { label: "Jul", value: 78000, carbs: 9300, protein: 3700, fats: 2600 },
+        { label: "Aug", value: 80500, carbs: 9600, protein: 3850, fats: 2650 },
+        { label: "Sep", value: 76500, carbs: 9200, protein: 3650, fats: 2550 },
+        { label: "Oct", value: 84500, carbs: 10050, protein: 4000, fats: 2800 },
+        { label: "Nov", value: 79500, carbs: 9500, protein: 3800, fats: 2650 },
+        { label: "Dec", value: 77000, carbs: 9300, protein: 3700, fats: 2600 },
       ].slice(0, currentMonth + 1),
       currentIndex: currentMonth,
     },
@@ -390,6 +390,50 @@ const Stats = () => {
       </View> */}
             </View>
           </View>
+        </View>
+        <View className="mt-8 bg-white rounded-2xl p-5 shadow-sm">
+          <Text className="font-bold text-lg text-gray-800 mb-3">
+            Macro Breakdown
+          </Text>
+
+          {["carbs", "protein", "fats"].map((macro) => {
+            const macroValue = data.chartData[data.currentIndex][macro]; 
+            const totalMacros =
+              data.chartData[data.currentIndex].carbs +
+              data.chartData[data.currentIndex].protein +
+              data.chartData[data.currentIndex].fats;
+            const macroPercentage = Math.round(
+              (macroValue / totalMacros) * 100
+            );
+
+            const colors = {
+              carbs: "#FE9A00",
+              protein: "#FF2056",
+              fats: "#9810FA",
+            };
+
+            return (
+              <View key={macro} className="mb-3">
+                <View className="flex-row justify-between items-center mb-1">
+                  <Text className="text-xs text-gray-600 font-semibold">
+                    {macro.charAt(0).toUpperCase() + macro.slice(1)}
+                  </Text>
+                  <Text className="text-xs text-gray-600 font-semibold">
+                    {macroPercentage}% ({macroValue}g avg)
+                  </Text>
+                </View>
+                <View className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <View
+                    style={{
+                      width: `${macroPercentage}%`,
+                      height: "100%",
+                      backgroundColor: colors[macro],
+                    }}
+                  />
+                </View>
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>
