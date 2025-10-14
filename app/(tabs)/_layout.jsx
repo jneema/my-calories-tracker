@@ -24,7 +24,7 @@ const Layout = () => {
           ),
         }}
       />
-        <Tabs.Screen    
+      <Tabs.Screen
         name="stats"
         options={{
           headerShown: false,
@@ -34,17 +34,8 @@ const Layout = () => {
           ),
         }}
       />
+
       <Tabs.Screen
-      name="plan"
-      options={{
-        headerShown: false,
-        title: "Plan",
-        tabBarIcon: ({ color, size }) => (
-          <Ionicons name="calendar" size={size} color={color} />
-        ),
-      }}        
-        />
-        <Tabs.Screen
         name="profile"
         options={{
           headerShown: false,
@@ -52,8 +43,8 @@ const Layout = () => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size} color={color} />
           ),
-        }}        
-        />
+        }}
+      />
     </Tabs>
   );
 };
