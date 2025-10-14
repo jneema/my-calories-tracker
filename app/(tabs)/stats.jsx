@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import Svg, { Polyline, Circle, Line } from "react-native-svg";
 
 const Stats = () => {
   const now = new Date();
@@ -22,13 +23,62 @@ const Stats = () => {
       weightChange: -0.6,
       weightGoal: 145,
       chartData: [
-        { label: "Sun", value: 2650, carbs: 300, protein: 120, fats: 80 },
-        { label: "Mon", value: 3100, carbs: 350, protein: 130, fats: 90 },
-        { label: "Tue", value: 2450, carbs: 280, protein: 110, fats: 70 },
-        { label: "Wed", value: 3200, carbs: 360, protein: 140, fats: 95 },
-        { label: "Thu", value: 2300, carbs: 270, protein: 100, fats: 65 },
-        { label: "Fri", value: 2900, carbs: 330, protein: 125, fats: 85 },
-        { label: "Sat", value: 2250, carbs: 260, protein: 105, fats: 60 },
+        {
+          label: "Sun",
+          value: 2650,
+          carbs: 300,
+          protein: 120,
+          fats: 80,
+          weight: 150,
+        },
+        {
+          label: "Mon",
+          value: 3100,
+          carbs: 350,
+          protein: 130,
+          fats: 90,
+          weight: 150.1,
+        },
+        {
+          label: "Tue",
+          value: 2450,
+          carbs: 280,
+          protein: 110,
+          fats: 70,
+          weight: 149.95,
+        },
+        {
+          label: "Wed",
+          value: 3200,
+          carbs: 360,
+          protein: 140,
+          fats: 95,
+          weight: 150.05,
+        },
+        {
+          label: "Thu",
+          value: 2300,
+          carbs: 270,
+          protein: 100,
+          fats: 65,
+          weight: 149.9,
+        },
+        {
+          label: "Fri",
+          value: 2900,
+          carbs: 330,
+          protein: 125,
+          fats: 85,
+          weight: 149.95,
+        },
+        {
+          label: "Sat",
+          value: 2250,
+          carbs: 260,
+          protein: 105,
+          fats: 60,
+          weight: 149.85,
+        },
       ].slice(0, currentDay + 1),
       currentIndex: currentDay,
     },
@@ -39,11 +89,46 @@ const Stats = () => {
       weightChange: -2.8,
       weightGoal: 145,
       chartData: [
-        { label: "W1", value: 18000, carbs: 2100, protein: 850, fats: 600 },
-        { label: "W2", value: 19600, carbs: 2300, protein: 900, fats: 650 },
-        { label: "W3", value: 17500, carbs: 2050, protein: 820, fats: 580 },
-        { label: "W4", value: 20500, carbs: 2400, protein: 950, fats: 700 },
-        { label: "W5", value: 18200, carbs: 2150, protein: 860, fats: 610 },
+        {
+          label: "W1",
+          value: 18000,
+          carbs: 2100,
+          protein: 850,
+          fats: 600,
+          weight: 150,
+        },
+        {
+          label: "W2",
+          value: 19600,
+          carbs: 2300,
+          protein: 900,
+          fats: 650,
+          weight: 149.6,
+        },
+        {
+          label: "W3",
+          value: 17500,
+          carbs: 2050,
+          protein: 820,
+          fats: 580,
+          weight: 149.2,
+        },
+        {
+          label: "W4",
+          value: 20500,
+          carbs: 2400,
+          protein: 950,
+          fats: 700,
+          weight: 148.8,
+        },
+        {
+          label: "W5",
+          value: 18200,
+          carbs: 2150,
+          protein: 860,
+          fats: 610,
+          weight: 148.5,
+        },
       ].slice(0, currentWeekOfMonth),
       currentIndex: currentWeekOfMonth - 1,
     },
@@ -54,18 +139,102 @@ const Stats = () => {
       weightChange: -12,
       weightGoal: 145,
       chartData: [
-        { label: "Jan", value: 78500, carbs: 9400, protein: 3750, fats: 2600 },
-        { label: "Feb", value: 81200, carbs: 9700, protein: 3900, fats: 2700 },
-        { label: "Mar", value: 76000, carbs: 9100, protein: 3600, fats: 2500 },
-        { label: "Apr", value: 83500, carbs: 10000, protein: 4000, fats: 2800 },
-        { label: "May", value: 75000, carbs: 9000, protein: 3500, fats: 2450 },
-        { label: "Jun", value: 82000, carbs: 9800, protein: 3950, fats: 2700 },
-        { label: "Jul", value: 78000, carbs: 9300, protein: 3700, fats: 2600 },
-        { label: "Aug", value: 80500, carbs: 9600, protein: 3850, fats: 2650 },
-        { label: "Sep", value: 76500, carbs: 9200, protein: 3650, fats: 2550 },
-        { label: "Oct", value: 84500, carbs: 10050, protein: 4000, fats: 2800 },
-        { label: "Nov", value: 79500, carbs: 9500, protein: 3800, fats: 2650 },
-        { label: "Dec", value: 77000, carbs: 9300, protein: 3700, fats: 2600 },
+        {
+          label: "Jan",
+          value: 78500,
+          carbs: 9400,
+          protein: 3750,
+          fats: 2600,
+          weight: 150,
+        },
+        {
+          label: "Feb",
+          value: 81200,
+          carbs: 9700,
+          protein: 3900,
+          fats: 2700,
+          weight: 149.5,
+        },
+        {
+          label: "Mar",
+          value: 76000,
+          carbs: 9100,
+          protein: 3600,
+          fats: 2500,
+          weight: 149,
+        },
+        {
+          label: "Apr",
+          value: 83500,
+          carbs: 10000,
+          protein: 4000,
+          fats: 2800,
+          weight: 148.6,
+        },
+        {
+          label: "May",
+          value: 75000,
+          carbs: 9000,
+          protein: 3500,
+          fats: 2450,
+          weight: 148.3,
+        },
+        {
+          label: "Jun",
+          value: 82000,
+          carbs: 9800,
+          protein: 3950,
+          fats: 2700,
+          weight: 147.9,
+        },
+        {
+          label: "Jul",
+          value: 78000,
+          carbs: 9300,
+          protein: 3700,
+          fats: 2600,
+          weight: 147.6,
+        },
+        {
+          label: "Aug",
+          value: 80500,
+          carbs: 9600,
+          protein: 3850,
+          fats: 2650,
+          weight: 147.3,
+        },
+        {
+          label: "Sep",
+          value: 76500,
+          carbs: 9200,
+          protein: 3650,
+          fats: 2550,
+          weight: 147,
+        },
+        {
+          label: "Oct",
+          value: 84500,
+          carbs: 10050,
+          protein: 4000,
+          fats: 2800,
+          weight: 146.7,
+        },
+        {
+          label: "Nov",
+          value: 79500,
+          carbs: 9500,
+          protein: 3800,
+          fats: 2650,
+          weight: 146.4,
+        },
+        {
+          label: "Dec",
+          value: 77000,
+          carbs: 9300,
+          protein: 3700,
+          fats: 2600,
+          weight: 146,
+        },
       ].slice(0, currentMonth + 1),
       currentIndex: currentMonth,
     },
@@ -256,9 +425,6 @@ const Stats = () => {
                   </View>
                 );
               })}
-
-              {/* Bottom axis label */}
-              {/* <Text className="text-[10px] text-gray-500 mt-1">kcal</Text> */}
             </View>
 
             {/* Chart area */}
@@ -271,25 +437,9 @@ const Stats = () => {
                     left: 0,
                     top: 0,
                     bottom: 0,
-                    // width: 1,
                     backgroundColor: "#d1d5db",
                   }}
                 />
-
-                {/* Gridlines */}
-                {/* {Array.from({ length: 5 }).map((_, i) => (
-                  <View
-                    key={i}
-                    style={{
-                      position: "absolute",
-                      top: (220 / 4) * i,
-                      left: 0,
-                      right: 0,
-                      height: 1,
-                      backgroundColor: "#e5e7eb",
-                    }}
-                  />
-                ))} */}
 
                 {/* Goal line */}
                 <View
@@ -376,18 +526,6 @@ const Stats = () => {
                   </Text>
                 ))}
               </View>
-
-              {/* Legend
-      <View className="flex-row justify-end mt-3">
-        <View className="flex-row items-center mr-3">
-          <View className="w-3 h-3 rounded-full bg-green-500 mr-1" />
-          <Text className="text-xs text-gray-500">Goal</Text>
-        </View>
-        <View className="flex-row items-center">
-          <View className="w-3 h-3 rounded-full bg-blue-500 mr-1" />
-          <Text className="text-xs text-gray-500">Current</Text>
-        </View>
-      </View> */}
             </View>
           </View>
         </View>
@@ -397,7 +535,7 @@ const Stats = () => {
           </Text>
 
           {["carbs", "protein", "fats"].map((macro) => {
-            const macroValue = data.chartData[data.currentIndex][macro]; 
+            const macroValue = data.chartData[data.currentIndex][macro];
             const totalMacros =
               data.chartData[data.currentIndex].carbs +
               data.chartData[data.currentIndex].protein +
@@ -434,6 +572,132 @@ const Stats = () => {
               </View>
             );
           })}
+        </View>
+
+        <View className="mt-8 bg-white rounded-2xl p-5 shadow-sm">
+          <View className="flex-col justify-between items-left mb-5">
+            <Text className="font-bold text-lg text-gray-800">
+              {selectedTimePeriod === "Week"
+                ? "Daily"
+                : selectedTimePeriod === "Month"
+                  ? "Weekly"
+                  : "Monthly"}{" "}
+              Weight Progress{" "}
+            </Text>
+            <Text className="text-[10px] text-green-600 font-semibold">
+              Goal: {data.weightGoal} lbs
+            </Text>
+          </View>
+
+          {/* Compute min and max weight for scaling */}
+          {(() => {
+            const weights = data.chartData.map(
+              (item) => item.weight ?? data.weight
+            );
+            const minWeight = Math.min(...weights, data.weightGoal) - 2; // padding
+            const maxWeight = Math.max(...weights, data.weightGoal) + 2; // padding
+            const chartHeight = 220;
+            const chartWidth = 300; 
+
+            return (
+              <View
+                style={{
+                  height: chartHeight,
+                  flexDirection: "row",
+                  alignItems: "flex-end",
+                }}
+              >
+                {/* Y-axis labels */}
+                <View
+                  style={{
+                    width: 40,
+                    height: "100%",
+                    justifyContent: "space-between",
+                    alignItems: "flex-end",
+                    marginRight: 5,
+                  }}
+                >
+                  {Array.from({ length: 5 }).map((_, i) => {
+                    const value = Math.round(
+                      minWeight + ((maxWeight - minWeight) / 4) * (4 - i)
+                    );
+                    return (
+                      <Text key={i} className="text-[10px] text-gray-500">
+                        {value} lbs
+                      </Text>
+                    );
+                  })}
+                </View>
+
+                {/* Line chart */}
+                <View style={{ flex: 1 }}>
+                  <Svg height={chartHeight} width="100%">
+                    {/* Draw line */}
+                    <Polyline
+                      points={data.chartData
+                        .map((item, i) => {
+                          const x =
+                            (i / (data.chartData.length - 1)) * chartWidth;
+                          const weight = item.weight ?? data.weight;
+                          const y =
+                            chartHeight -
+                            ((weight - minWeight) / (maxWeight - minWeight)) *
+                              chartHeight;
+                          return `${x},${y}`;
+                        })
+                        .join(" ")}
+                      fill="none"
+                      stroke="#ec4899"
+                      strokeWidth="3"
+                    />
+
+                    {/* Draw dots */}
+                    {data.chartData.map((item, i) => {
+                      const x = (i / (data.chartData.length - 1)) * chartWidth;
+                      const weight = item.weight ?? data.weight;
+                      const y =
+                        chartHeight -
+                        ((weight - minWeight) / (maxWeight - minWeight)) *
+                          chartHeight;
+                      return (
+                        <Circle key={i} cx={x} cy={y} r={4} fill="#ec4899" />
+                      );
+                    })}
+
+                    {/* Goal line */}
+                    <Line
+                      x1="0"
+                      y1={
+                        chartHeight -
+                        ((data.weightGoal - minWeight) /
+                          (maxWeight - minWeight)) *
+                          chartHeight
+                      }
+                      x2={chartWidth}
+                      y2={
+                        chartHeight -
+                        ((data.weightGoal - minWeight) /
+                          (maxWeight - minWeight)) *
+                          chartHeight
+                      }
+                      stroke="#10b981"
+                      strokeWidth="1"
+                      strokeDasharray="4,2"
+                    />
+                  </Svg>
+
+                  {/* X-axis labels */}
+                  <View className="flex-row justify-between mt-2">
+                    {data.chartData.map((item, i) => (
+                      <Text key={i} className="text-[10px] text-gray-500">
+                        {item.label}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+              </View>
+            );
+          })()}
         </View>
       </ScrollView>
     </SafeAreaView>
