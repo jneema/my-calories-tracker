@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Polyline, Circle, Line } from "react-native-svg";
+import CalendarView from "../../components/calendar-view";
 
 const Stats = () => {
   const now = new Date();
@@ -11,6 +12,8 @@ const Stats = () => {
   const currentDate = now.getDate();
   const currentMonth = now.getMonth();
   const currentWeekOfMonth = Math.ceil(currentDate / 7);
+  const monthName = now.toLocaleString('default', { month: 'long' });
+  const currentYear = now.getFullYear();
 
   const [selectedTimePeriod, setSelectedTimePeriod] = useState("Week");
   const [selectedBar, setSelectedBar] = useState(null);
@@ -597,7 +600,7 @@ const Stats = () => {
             const minWeight = Math.min(...weights, data.weightGoal) - 2; // padding
             const maxWeight = Math.max(...weights, data.weightGoal) + 2; // padding
             const chartHeight = 220;
-            const chartWidth = 300; 
+            const chartWidth = 300;
 
             return (
               <View
@@ -698,6 +701,20 @@ const Stats = () => {
               </View>
             );
           })()}
+        </View>
+        <View className="mt-8 bg-white rounded-2xl p-5 shadow-sm">
+          <View className="flex-col justify-between items-left mb-1">
+            <Text className="font-bold text-lg text-gray-800">
+              Tracking Streak
+            </Text>
+            <Text className="text-sm">
+              {monthName} {currentYear}
+            </Text>
+          </View>
+
+          <View>
+            <CalendarView />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
