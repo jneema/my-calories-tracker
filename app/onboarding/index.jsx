@@ -41,13 +41,13 @@ const Onboarding = () => {
       setCurrentStep(currentStep + 1);
     } else {
       await AsyncStorage.setItem("hasSeenOnboarding", "true");
-      router.replace("/(tabs)");
+      router.replace("/onboarding/welcome");
     }
   };
 
   const handleSkip = async () => {
     await AsyncStorage.setItem("hasSeenOnboarding", "true");
-    router.replace("/(tabs)");
+    router.replace("/onboarding/welcome");
   };
 
   return (
