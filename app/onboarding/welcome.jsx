@@ -60,7 +60,7 @@ const Welcome = () => {
             }}
             onPress={async () => {
               await AsyncStorage.setItem("guestMode", "true");
-              router.replace("/(tabs)");
+              router.replace("/onboarding/personal-details");
             }}
           >
             <Animated.View style={[guestAnimatedStyle]}>
