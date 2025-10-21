@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "my-calorie-tracker",
+    "name": "My Calorie Tracker",
     "scheme": "my-calorie-tracker",
     "slug": "my-calorie-tracker",
     "version": "1.0.0",
@@ -30,7 +30,8 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ]
   }
 }
