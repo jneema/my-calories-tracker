@@ -1,21 +1,27 @@
 import { View, Text, TextInput } from "react-native";
-import React from "react";
-import AnimatedButton from "../../../components/animated-button";
+import AnimatedButton from "../../components/animated-button";
 import { useSharedValue, withTiming } from "react-native-reanimated";
 
-const StepOne = ({ formData, updateField }) => {
+const StepOne = ({ formData, updateField, guestMode }) => {
   const maleScale = useSharedValue(1);
   const femaleScale = useSharedValue(1);
 
+
   return (
     <>
-      <Text className="text-gray-700 text-base mb-2">Name or Nickname</Text>
-      <TextInput
-        value={formData.name}
-        onChangeText={(t) => updateField("name", t)}
-        className="rounded-lg px-4 py-3 border mb-5 border-gray-300"
-        placeholder="Enter your name"
-      />
+      {/* Show only when guestMode is "true" */}
+      {guestMode === "true" && (
+        <>
+          <Text className="text-gray-700 text-base mb-2">Name or Nickname</Text>
+          <TextInput
+            value={formData.name}
+            onChangeText={(t) => updateField("name", t)}
+            className="rounded-lg px-4 py-3 border mb-5 border-gray-300"
+            placeholder="Enter your name"
+          />
+        </>
+      )}
+
       <Text className="text-gray-700 text-base mb-3">Gender</Text>
       <View className="flex-row justify-between gap-3">
         <AnimatedButton

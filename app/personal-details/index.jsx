@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -17,39 +17,52 @@ import StepTwo from "./step-two";
 import StepThree from "./step-three";
 import StepFour from "./step-four";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 
-const steps = [
-  {
-    id: 1,
-    title: "What is your name?",
-    subtitle: "Help us personalize your experience.",
-    icon: "person",
-  },
-  {
-    id: 2,
-    title: "Tell us about yourself",
-    subtitle: "We need these details to personalize things further.",
-    icon: "information-circle",
-  },
-  {
-    id: 3,
-    title: "What are your goals?",
-    subtitle: "Choose your activity level and target.",
-    icon: "checkbox",
-  },
-  {
-    id: 4,
-    title: "Your plan is ready!",
-    subtitle: "Here is your personalized daily calorie target.",
-    icon: "checkmark-circle",
-  },
-];
-
 const MultiStepForm = () => {
+  const [guestMode, setGuestMode] = useState(null);
+
+  useEffect(() => {
+    const fetchGuestMode = async () => {
+      try {
+        const value = await AsyncStorage.getItem("guestMode");
+        setGuestMode(value);
+      } catch (error) {
+        console.warn("Error fetching guest mode:", error);
+      }
+    };
+    fetchGuestMode();
+  }, []);
   const router = useRouter();
   const [step, setStep] = useState(1);
+  const steps = [
+    {
+      id: 1,
+      title: guestMode ? "What is your name?" : "What is your gender?",
+      subtitle: "Help us personalize your experience.",
+      icon: "person",
+    },
+    {
+      id: 2,
+      title: "Tell us about yourself",
+      subtitle: "We need these details to personalize things further.",
+      icon: "information-circle",
+    },
+    {
+      id: 3,
+      title: "What are your goals?",
+      subtitle: "Choose your activity level and target.",
+      icon: "checkbox",
+    },
+    {
+      id: 4,
+      title: "Your plan is ready!",
+      subtitle: "Here is your personalized daily calorie target.",
+      icon: "checkmark-circle",
+    },
+  ];
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -69,10 +82,13 @@ const MultiStepForm = () => {
 
   const canProceed = true;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step < steps.length) {
       setStep(step + 1);
     } else {
+      await AsyncStorage.setItem("userFormData", JSON.stringify(formData));
+      await AsyncStorage.setItem("hasPersonalDetails", "true");
+      console.log("Form data saved successfully:", formData);
       router.push("/(tabs)");
     }
   };
@@ -132,7 +148,11 @@ const MultiStepForm = () => {
               showsVerticalScrollIndicator={false}
             >
               {step === 1 && (
-                <StepOne formData={formData} updateField={updateField} />
+                <StepOne
+                  formData={formData}
+                  updateField={updateField}
+                  guestMode={guestMode}
+                />
               )}
               {step === 2 && (
                 <StepTwo formData={formData} updateField={updateField} />
@@ -140,7 +160,9 @@ const MultiStepForm = () => {
               {step === 3 && (
                 <StepThree formData={formData} updateField={updateField} />
               )}
-              {step === 4 && <StepFour formData={formData} />}
+              {step === 4 && (
+                <StepFour formData={formData} guestMode={guestMode} />
+              )}
             </ScrollView>
 
             {/* Bottom section */}

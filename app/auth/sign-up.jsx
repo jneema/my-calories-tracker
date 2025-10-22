@@ -7,12 +7,14 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = () => {
   const router = useRouter();
@@ -23,6 +25,7 @@ const SignUp = () => {
 
   const [isChecked, setIsChecked] = useState(false);
   const [focused, setFocused] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,6 +62,59 @@ const SignUp = () => {
       }),
     ]).start();
   }, []);
+
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      Alert.alert("Error", "Please enter your name");
+      return false;
+    }
+    if (!formData.email.trim()) {
+      Alert.alert("Error", "Please enter your email");
+      return false;
+    }
+    if (!formData.email.includes("@")) {
+      Alert.alert("Error", "Please enter a valid email");
+      return false;
+    }
+    if (formData.password.length < 6) {
+      Alert.alert("Error", "Password must be at least 6 characters");
+      return false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return false;
+    }
+    if (!isChecked) {
+      Alert.alert("Error", "Please agree to Terms & Conditions");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSignUp = async () => {
+    if (!validateForm()) return;
+
+    setLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      await AsyncStorage.setItem("authToken", "mock-token-12345");
+      await AsyncStorage.setItem("userEmail", formData.email);
+      await AsyncStorage.setItem("userName", formData.name);
+      await AsyncStorage.setItem("guestMode", "false");
+
+      router.replace("/personal-details/index");
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+      console.error("Signup error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    Alert.alert("Coming Soon", "Google Sign In will be available soon!");
+  };
 
   return (
     <KeyboardAvoidingView
@@ -160,6 +216,8 @@ const SignUp = () => {
                 label: "Email",
                 key: "email",
                 placeholder: "yourname@example.com",
+                keyboardType: "email-address",
+                autoCapitalize: "none",
               },
               {
                 label: "Password",
@@ -190,8 +248,11 @@ const SignUp = () => {
                   onChangeText={(t) => updateField(field.key, t)}
                   placeholder={field.placeholder}
                   secureTextEntry={field.secure}
+                  keyboardType={field.keyboardType}
+                  autoCapitalize={field.autoCapitalize}
                   onFocus={() => setFocused(field.key)}
                   onBlur={() => setFocused(null)}
+                  editable={!loading}
                   style={{
                     backgroundColor: "#fff",
                     borderWidth: 2,
@@ -212,25 +273,34 @@ const SignUp = () => {
               </View>
             ))}
 
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 15,
+              }}
+            >
               <Checkbox
                 value={isChecked}
                 onValueChange={setIsChecked}
                 color={isChecked ? "#3b82f6" : undefined}
+                disabled={loading}
               />
-              <Text style={{ color: "black", marginLeft: 8 }}>
+              <Text style={{ color: "black", marginLeft: 8, flex: 1 }}>
                 I agree to the Terms & Conditions and Privacy Policy
               </Text>
             </View>
+
+            {/* Sign Up Button */}
             <TouchableOpacity
-              onPress={() => router.push("/auth/sign-in")}
+              onPress={handleSignUp}
+              disabled={loading}
               activeOpacity={0.85}
               style={{
-                backgroundColor: "#6366f1",
+                backgroundColor: loading ? "#9ca3af" : "#6366f1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
-                marginTop: 10,
                 marginBottom: 10,
               }}
             >
@@ -242,18 +312,33 @@ const SignUp = () => {
                   letterSpacing: 0.3,
                 }}
               >
-                Sign Up
+                {loading ? "Creating Account..." : "Sign Up"}
               </Text>
             </TouchableOpacity>
-            <Text
+
+            {/* Divider */}
+            <View
               style={{
-                color: "black",
-                textAlign: "center",
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 15,
               }}
             >
-              or
-            </Text>
+              <View
+                style={{ flex: 1, height: 1, backgroundColor: "#e5e7eb" }}
+              />
+              <Text style={{ color: "#6b7280", paddingHorizontal: 10 }}>
+                or
+              </Text>
+              <View
+                style={{ flex: 1, height: 1, backgroundColor: "#e5e7eb" }}
+              />
+            </View>
+
+            {/* Google Sign Up */}
             <TouchableOpacity
+              onPress={handleGoogleSignUp}
+              disabled={loading}
               activeOpacity={0.7}
               style={{
                 backgroundColor: "rgba(99,102,241,0.08)",
@@ -262,8 +347,6 @@ const SignUp = () => {
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
-                marginTop: 10,
-                display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
               }}
@@ -281,45 +364,16 @@ const SignUp = () => {
                 Continue with Google
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={async () => {
-                await AsyncStorage.setItem("guestMode", "true");
-                router.replace("/(tabs)");
-              }}
-              style={{
-                backgroundColor: "rgba(99,102,241,0.08)",
-                borderWidth: 2,
-                borderColor: "#6366f1",
-                paddingVertical: 14,
-                borderRadius: 12,
-                alignItems: "center",
-                marginTop: 10,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  color: "#6366f1",
-                  fontSize: 16,
-                  fontWeight: "600",
-                  letterSpacing: 0.3,
-                  marginLeft: 5,
-                }}
-              >
-                Continue as guest
-              </Text>
-            </TouchableOpacity>
+
+            {/* Sign In Link */}
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "center",
-                marginTop: 10,
+                marginTop: 20,
               }}
             >
-              <Text style={{ color: "black", fontSize: 15 }}>
+              <Text style={{ color: "#6b7280", fontSize: 15 }}>
                 Already have an account?{" "}
               </Text>
               <TouchableOpacity onPress={() => router.push("/auth/sign-in")}>
@@ -327,7 +381,7 @@ const SignUp = () => {
                   style={{
                     color: "#6366f1",
                     fontWeight: "600",
-                    textDecorationLine: "underline",
+                    fontSize: 15,
                   }}
                 >
                   Sign In
