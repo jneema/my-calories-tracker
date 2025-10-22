@@ -29,7 +29,7 @@ const RootLayout = () => {
   useEffect(() => {
     if (!showCustomSplash && isReady) {
       if (DEV_MODE) {
-        router.replace("/auth/sign-up");
+        router.replace("/auth/forgot-password");
       } else if (isNewUser) {
         router.replace("/onboarding");
       } else {

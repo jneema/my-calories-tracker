@@ -198,16 +198,20 @@ const SignIn = () => {
               </View>
             ))}
 
-            <Text
-              style={{
-                color: "black",
-                marginLeft: 8,
-                textAlign: "right",
-                textDecorationLine: "underline",
-              }}
+            <TouchableOpacity
+              onPress={() => router.push("/auth/forgot-password")}
             >
-              Forgot Password?
-            </Text>
+              <Text
+                style={{
+                  color: "black",
+                  marginLeft: 8,
+                  textAlign: "right",
+                  textDecorationLine: "underline",
+                }}
+              >
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.85}
               style={{
