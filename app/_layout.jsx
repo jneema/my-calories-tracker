@@ -16,23 +16,7 @@ const RootLayout = () => {
 
   // // Call it
   // clearAllStorage();
-  const logAllStorage = async () => {
-    try {
-      const keys = await AsyncStorage.getAllKeys();
-      const stores = await AsyncStorage.multiGet(keys);
 
-      console.log("=== AsyncStorage Contents ===");
-      stores.forEach(([key, value]) => {
-        console.log(`${key}: ${value}`);
-      });
-      console.log("=============================");
-    } catch (error) {
-      console.error("Error reading AsyncStorage:", error);
-    }
-  };
-
-  // Call it
-  logAllStorage();
 
   const [showCustomSplash, setShowCustomSplash] = useState(true);
   const [isReady, setIsReady] = useState(false);

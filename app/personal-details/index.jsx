@@ -23,7 +23,8 @@ import useStoredItems from "../../hooks/useStoredItem";
 const { height, width } = Dimensions.get("window");
 
 const MultiStepForm = () => {
-  const guestMode = useStoredItems(["guestMode"]);
+  const storedItems = useStoredItems(["guestMode"]);
+  const guestMode = storedItems.guestMode;
   const router = useRouter();
   const [step, setStep] = useState(1);
   const steps = [
