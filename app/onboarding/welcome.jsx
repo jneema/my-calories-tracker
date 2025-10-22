@@ -127,6 +127,10 @@ const Welcome = () => {
               signInScale.value = withTiming(1, { duration: 100 });
               setTimeout(() => setSignInPressed(false), 100);
             }}
+            onPress={async () => {
+              await AsyncStorage.setItem("guestMode", "false");
+              router.replace("/auth/sign-up");
+            }}
           >
             <Animated.View
               style={[

@@ -55,7 +55,7 @@ const StepFour = ({ formData }) => {
           alignItems: "center",
           borderRadius: 16,
           padding: 20,
-          marginTop: 80,
+          marginTop: 10,
           marginBottom: 20,
         }}
       >
