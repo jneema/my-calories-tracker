@@ -11,23 +11,20 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SignUp = () => {
+const SignIn = () => {
   const router = useRouter();
   const logoScale = useRef(new Animated.Value(0.5)).current;
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const textY = useRef(new Animated.Value(20)).current;
   const textOpacity = useRef(new Animated.Value(0)).current;
 
-  const [isChecked, setIsChecked] = useState(false);
   const [focused, setFocused] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const updateField = (key, value) =>
@@ -67,7 +64,7 @@ const SignUp = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
     >
       <LinearGradient
-        colors={["#3b82f6", "#6366f1", "#8b5cf6"]}
+        colors={["#f97316", "#f43f5e", "#db2777"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flex: 1 }}
@@ -102,7 +99,7 @@ const SignUp = () => {
                 transform: [{ scale: logoScale }],
               }}
             >
-              <Ionicons name="restaurant" size={48} color="#8b5cf6" />
+              <Ionicons name="restaurant" size={48} color="#f43f5e" />
             </Animated.View>
 
             <Animated.View
@@ -121,7 +118,7 @@ const SignUp = () => {
                   letterSpacing: -1,
                 }}
               >
-                Create Account
+                Welcome Back{" "}
               </Text>
               <Text
                 style={{
@@ -131,7 +128,7 @@ const SignUp = () => {
                   marginBottom: 30,
                 }}
               >
-                Start your health journey today.
+                Sign in to continue tracking{" "}
               </Text>
             </Animated.View>
           </View>
@@ -152,11 +149,6 @@ const SignUp = () => {
           >
             {[
               {
-                label: "Full Name",
-                key: "name",
-                placeholder: "Enter your name",
-              },
-              {
                 label: "Email",
                 key: "email",
                 placeholder: "yourname@example.com",
@@ -164,12 +156,6 @@ const SignUp = () => {
               {
                 label: "Password",
                 key: "password",
-                placeholder: "•••••••",
-                secure: true,
-              },
-              {
-                label: "Confirm Password",
-                key: "confirmPassword",
                 placeholder: "•••••••",
                 secure: true,
               },
@@ -196,14 +182,14 @@ const SignUp = () => {
                     backgroundColor: "#fff",
                     borderWidth: 2,
                     borderColor:
-                      focused === field.key ? "#6366f1" : "rgba(229,231,235,1)",
+                      focused === field.key ? "#f43f5e" : "rgba(229,231,235,1)",
                     borderRadius: 12,
                     paddingVertical: 12,
                     paddingHorizontal: 14,
                     fontSize: 15,
                     color: "#111827",
                     shadowColor:
-                      focused === field.key ? "#6366f1" : "transparent",
+                      focused === field.key ? "#f43f5e" : "transparent",
                     shadowOpacity: 0.25,
                     shadowRadius: focused === field.key ? 10 : 0,
                     elevation: focused === field.key ? 3 : 0,
@@ -212,21 +198,20 @@ const SignUp = () => {
               </View>
             ))}
 
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Checkbox
-                value={isChecked}
-                onValueChange={setIsChecked}
-                color={isChecked ? "#3b82f6" : undefined}
-              />
-              <Text style={{ color: "black", marginLeft: 8 }}>
-                I agree to the Terms & Conditions and Privacy Policy
-              </Text>
-            </View>
+            <Text
+              style={{
+                color: "black",
+                marginLeft: 8,
+                textAlign: "right",
+                textDecorationLine: "underline",
+              }}
+            >
+              Forgot Password?
+            </Text>
             <TouchableOpacity
-              onPress={() => router.push("/auth/sign-in")}
               activeOpacity={0.85}
               style={{
-                backgroundColor: "#6366f1",
+                backgroundColor: "#f43f5e",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -242,7 +227,7 @@ const SignUp = () => {
                   letterSpacing: 0.3,
                 }}
               >
-                Sign Up
+                Sign In
               </Text>
             </TouchableOpacity>
             <Text
@@ -256,22 +241,22 @@ const SignUp = () => {
             <TouchableOpacity
               activeOpacity={0.7}
               style={{
-                backgroundColor: "rgba(99,102,241,0.08)",
+                backgroundColor: "rgba(244,63,94,0.05)",
                 borderWidth: 2,
-                borderColor: "#6366f1",
+                borderColor: "#f43f5e",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
               }}
             >
-              <Ionicons name="logo-google" size={16} color="#6366f1" />
+              <Ionicons name="logo-google" size={16} color="#f43f5e" />
               <Text
                 style={{
-                  color: "#6366f1",
+                  color: "#f43f5e",
                   fontSize: 16,
                   fontWeight: "600",
                   letterSpacing: 0.3,
@@ -288,9 +273,9 @@ const SignUp = () => {
                 router.replace("/(tabs)");
               }}
               style={{
-                backgroundColor: "rgba(99,102,241,0.08)",
+                backgroundColor: "rgba(244,63,94,0.05)",
                 borderWidth: 2,
-                borderColor: "#6366f1",
+                borderColor: "#f43f5e",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -298,11 +283,12 @@ const SignUp = () => {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
+                marginBottom: 15,
               }}
             >
               <Text
                 style={{
-                  color: "#6366f1",
+                  color: "#f43f5e",
                   fontSize: 16,
                   fontWeight: "600",
                   letterSpacing: 0.3,
@@ -312,25 +298,20 @@ const SignUp = () => {
                 Continue as guest
               </Text>
             </TouchableOpacity>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                marginTop: 10,
-              }}
-            >
+
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <Text style={{ color: "black", fontSize: 15 }}>
-                Already have an account?{" "}
+                Don't have an account?{" "}
               </Text>
-              <TouchableOpacity onPress={() => router.push("/auth/sign-in")}>
+              <TouchableOpacity onPress={() => router.push("/auth/sign-up")}>
                 <Text
                   style={{
-                    color: "#6366f1",
+                    color: "#f43f5e",
                     fontWeight: "600",
                     textDecorationLine: "underline",
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </Text>
               </TouchableOpacity>
             </View>
@@ -341,4 +322,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

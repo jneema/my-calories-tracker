@@ -10,6 +10,8 @@ const RootLayout = () => {
   const [isNewUser, setIsNewUser] = useState(false);
   const router = useRouter();
 
+  const DEV_MODE = true;
+
   useEffect(() => {
     const checkUser = async () => {
       try {
@@ -26,12 +28,13 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (!showCustomSplash && isReady) {
-      router.replace("/onboarding");
-      // if (isNewUser) {
-      //   router.replace("/onboarding");
-      // } else {
-      //   router.replace("/(tabs)");
-      // }
+      if (DEV_MODE) {
+        router.replace("/auth/sign-up");
+      } else if (isNewUser) {
+        router.replace("/onboarding");
+      } else {
+        router.replace("/(tabs)");
+      }
     }
   }, [showCustomSplash, isReady]);
 
