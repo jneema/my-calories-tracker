@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Circle } from "react-native-svg";
 import { router } from "expo-router";
+import useStoredItems from "../../hooks/useStoredItem";
 
 const HomePage = () => {
+  const storedData = useStoredItems(["guestMode", "userFormData", "userName"]);
+  // useEffect(() => {
+  console.log("Stored values:", storedData);
+  // }, [guestMode]);
   const date = new Date();
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
@@ -123,8 +128,13 @@ const HomePage = () => {
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <View>
-            <Text className="font-bold text-5xl">Today</Text>
-            <Text className="text-base text-gray-600">{fullDate}</Text>
+            <Text className="font-bold text-5xl">
+              Hello{" "}
+              {storedData.guestMode
+                ? storedData.userFormData?.name || "Guest"
+                : storedData.userName || "User"}
+            </Text>
+            <Text className="text-base text-gray-600">Today, {fullDate}</Text>
           </View>
           <View className="flex flex-row space-x-4">
             <Ionicons name="notifications-outline" size={24} color="black" />

@@ -18,23 +18,12 @@ import StepThree from "./step-three";
 import StepFour from "./step-four";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useStoredItems from "../../hooks/useStoredItem";
 
 const { height, width } = Dimensions.get("window");
 
 const MultiStepForm = () => {
-  const [guestMode, setGuestMode] = useState(null);
-
-  useEffect(() => {
-    const fetchGuestMode = async () => {
-      try {
-        const value = await AsyncStorage.getItem("guestMode");
-        setGuestMode(value);
-      } catch (error) {
-        console.warn("Error fetching guest mode:", error);
-      }
-    };
-    fetchGuestMode();
-  }, []);
+  const guestMode = useStoredItems(["guestMode"]);
   const router = useRouter();
   const [step, setStep] = useState(1);
   const steps = [
