@@ -16,6 +16,7 @@ import StepOne from "./step-one";
 import StepTwo from "./step-two";
 import StepThree from "./step-three";
 import StepFour from "./step-four";
+import { useRouter } from "expo-router";
 
 const { height, width } = Dimensions.get("window");
 
@@ -40,18 +41,21 @@ const steps = [
   },
   {
     id: 4,
-    title: "You're all set!",
-    subtitle: "Review your details before finishing.",
+    title: "Your plan is ready!",
+    subtitle: "Here is your personalized daily calorie target.",
     icon: "checkmark-circle",
   },
 ];
 
 const MultiStepForm = () => {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
     age: "",
+    weight: "",
+    height: "",
     activityLevel: "",
     goal: "",
   });
@@ -66,7 +70,11 @@ const MultiStepForm = () => {
   const canProceed = true;
 
   const handleNext = () => {
-    if (step < steps.length) setStep(step + 1);
+    if (step < steps.length) {
+      setStep(step + 1);
+    } else {
+      router.push("/(tabs)");
+    }
   };
 
   const handleBack = () => {

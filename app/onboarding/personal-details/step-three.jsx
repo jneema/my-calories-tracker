@@ -3,6 +3,69 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 const StepThree = ({ formData, updateField }) => {
+  const options = [
+    {
+      key: "sedentary",
+      label: "Sedentary",
+      desc: "Little or no exercise",
+      icon: "bed-outline",
+    },
+    {
+      key: "light",
+      label: "Light",
+      desc: "Exercise 1–3 days/week",
+      icon: "walk-outline",
+    },
+    {
+      key: "moderate",
+      label: "Moderate",
+      desc: "Exercise 3–5 days/week",
+      icon: "bicycle-outline",
+    },
+    {
+      key: "active",
+      label: "Active",
+      desc: "Exercise 6–7 days/week",
+      icon: "fitness-outline",
+    },
+    {
+      key: "veryActive",
+      label: "Very Active",
+      desc: "Intense daily training",
+      icon: "barbell-outline",
+    },
+  ];
+
+  const goals = [
+    {
+      key: "lose",
+      label: "Lose Weight",
+      desc: "500 calorie deficit",
+      icon: "trending-down-outline",
+      borderColor: "#fb7185",
+      bgColor: "#fff1f2",
+      selectedColor: "#f43f5e",
+    },
+    {
+      key: "maintain",
+      label: "Maintain Weight",
+      desc: "No calorie adjustment",
+      icon: "chevron-collapse-outline",
+      borderColor: "#60a5fa",
+      bgColor: "#eff6ff",
+      selectedColor: "#3b82f6",
+    },
+    {
+      key: "gain",
+      label: "Gain Weight",
+      desc: "300 calorie surplus",
+      icon: "trending-up-outline",
+      borderColor: "#5eead4",
+      bgColor: "#f0fdfa",
+      selectedColor: "#14b8a6",
+    },
+  ];
+
   return (
     <View className="space-y-4">
       {/* Activity Level Section */}
@@ -15,38 +78,7 @@ const StepThree = ({ formData, updateField }) => {
         </Text>
       </View>
 
-      {[
-        {
-          key: "sedentary",
-          label: "Sedentary",
-          desc: "Little or no exercise",
-          icon: "bed-outline",
-        },
-        {
-          key: "light",
-          label: "Light",
-          desc: "Exercise 1–3 days/week",
-          icon: "walk-outline",
-        },
-        {
-          key: "moderate",
-          label: "Moderate",
-          desc: "Exercise 3–5 days/week",
-          icon: "bicycle-outline",
-        },
-        {
-          key: "active",
-          label: "Active",
-          desc: "Exercise 6–7 days/week",
-          icon: "fitness-outline",
-        },
-        {
-          key: "veryActive",
-          label: "Very Active",
-          desc: "Intense daily training",
-          icon: "barbell-outline",
-        },
-      ].map((option) => {
+      {options.map((option) => {
         const isSelected = formData.activityLevel === option.key;
         return (
           <TouchableOpacity
@@ -108,35 +140,7 @@ const StepThree = ({ formData, updateField }) => {
           </Text>
         </View>
 
-        {[
-          {
-            key: "lose",
-            label: "Lose Weight",
-            desc: "500 calorie deficit",
-            icon: "trending-down-outline",
-            borderColor: "#fb7185",
-            bgColor: "#fff1f2",
-            selectedColor: "#f43f5e",
-          },
-          {
-            key: "maintain",
-            label: "Maintain Weight",
-            desc: "No calorie adjustment",
-            icon: "chevron-collapse-outline",
-            borderColor: "#60a5fa",
-            bgColor: "#eff6ff",
-            selectedColor: "#3b82f6",
-          },
-          {
-            key: "gain",
-            label: "Gain Weight",
-            desc: "300 calorie surplus",
-            icon: "trending-up-outline",
-            borderColor: "#5eead4",
-            bgColor: "#f0fdfa",
-            selectedColor: "#14b8a6",
-          },
-        ].map((goal) => {
+        {goals.map((goal) => {
           const isSelected = formData.goal === goal.key;
           return (
             <TouchableOpacity

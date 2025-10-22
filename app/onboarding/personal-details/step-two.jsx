@@ -12,6 +12,22 @@ const StepTwo = ({ formData, updateField }) => {
         className="rounded-lg px-4 py-3 border border-gray-300"
         placeholder="Enter your age"
       />
+      <Text className="text-gray-700 text-base mb-2 mt-5">Weight</Text>
+      <TextInput
+        value={formData.weight}
+        onChangeText={(t) => updateField("weight", t)}
+        keyboardType="numeric"
+        className="rounded-lg px-4 py-3 border border-gray-300"
+        placeholder="Weight(kg)"
+      />
+      <Text className="text-gray-700 text-base mb-2 mt-5">Height</Text>
+      <TextInput
+        value={formData.height}
+        onChangeText={(t) => updateField("height", t)}
+        keyboardType="numeric"
+        className="rounded-lg px-4 py-3 border border-gray-300"
+        placeholder="Height(cm)"
+      />
     </>
   );
 };
