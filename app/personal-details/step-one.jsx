@@ -6,11 +6,10 @@ const StepOne = ({ formData, updateField, guestMode }) => {
   const maleScale = useSharedValue(1);
   const femaleScale = useSharedValue(1);
 
-
   return (
     <>
       {/* Show only when guestMode is "true" */}
-      {guestMode === "true" && (
+      {guestMode && (
         <>
           <Text className="text-gray-700 text-base mb-2">Name or Nickname</Text>
           <TextInput

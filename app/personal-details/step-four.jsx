@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const StepFour = ({ formData, guestMode }) => {
   const infoCards = [
@@ -47,10 +47,10 @@ const StepFour = ({ formData, guestMode }) => {
   ];
 
   return (
-    <>
+    <View>
       {/* Gradient Summary Card */}
       <LinearGradient
-        colors={["#FF5F00", "#EB0071"]}
+        colors={["#14b8a6", "#06b6d4"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
@@ -58,24 +58,27 @@ const StepFour = ({ formData, guestMode }) => {
           flexDirection: "column",
           alignItems: "center",
           borderRadius: 16,
-          padding: 20,
-          marginTop: 10,
-          marginBottom: 20,
+          padding: 15,
+          marginTop: -10,
         }}
       >
-        <Text className="font-semibold text-base text-white/80 mb-1">
+        <Text className="font-semibold text-base text-white/80">
           YOUR DAILY CALORIE TARGET
         </Text>
-        <Text className="text-5xl font-bold text-white mb-1">2,150</Text>
+        <Text
+          className="text-5xl font-bold text-white"
+          style={{ lineHeight: 58 }}
+        >
+          2,150
+        </Text>
         <Text className="font-medium text-white/90">kcal per day</Text>
       </LinearGradient>
-
       {/* Info Cards */}
       <View className="mt-3">
         {infoCards.map((item, index) => (
           <View
             key={index}
-            className="bg-white rounded-xl p-4 mb-3 flex-row items-center"
+            className="bg-white rounded-xl p-2 mb-3 flex-row items-center"
             style={{
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 2 },
@@ -100,7 +103,31 @@ const StepFour = ({ formData, guestMode }) => {
           </View>
         ))}
       </View>
-    </>
+
+      <View
+        style={{
+          borderRadius: 14,
+          padding: 14,
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 10,
+          marginBottom: 10,
+          borderWidth: 2,
+          borderColor: "#14b8a6",
+          backgroundColor: "transparent",
+        }}
+      >
+        <Ionicons name="information-circle-outline" size={22} color="#14b8a6" />
+        <Text
+          className="text-[#0f172a] text-[15px] ml-2 leading-6 flex-1"
+          style={{ flexWrap: "wrap" }}
+        >
+          This target is calculated using the{" "}
+          <Text className="font-semibold">Mifflin-St Jeor Formula</Text> based
+          on your stats. You can adjust it anytime in settings.
+        </Text>
+      </View>
+    </View>
   );
 };
 

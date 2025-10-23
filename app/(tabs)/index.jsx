@@ -9,9 +9,7 @@ import useStoredItems from "../../hooks/useStoredItem";
 
 const HomePage = () => {
   const storedData = useStoredItems(["guestMode", "userFormData", "userName"]);
-  // useEffect(() => {
   console.log("Stored values:", storedData);
-  // }, [guestMode]);
   const date = new Date();
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
@@ -124,7 +122,7 @@ const HomePage = () => {
     <SafeAreaView className="flex-1 px-5 bg-gray-50">
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        // contentContainerStyle={{ paddingBottom: 40 }}
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <View>

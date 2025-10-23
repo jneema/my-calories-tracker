@@ -103,7 +103,7 @@ const SignUp = () => {
       await AsyncStorage.setItem("userName", formData.name);
       await AsyncStorage.setItem("guestMode", "false");
 
-      router.replace("/personal-details/index");
+      router.replace("/personal-details");
     } catch (error) {
       Alert.alert("Error", "Something went wrong. Please try again.");
       console.error("Signup error:", error);

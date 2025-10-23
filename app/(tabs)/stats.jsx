@@ -260,7 +260,7 @@ const Stats = () => {
     <SafeAreaView className="flex-1 bg-gray-50 px-5">
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        // contentContainerStyle={{ paddingBottom: 40 }}
       >
         {/* Header */}
         <View className="flex-row items-center justify-between mt-5">

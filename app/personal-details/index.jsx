@@ -25,6 +25,7 @@ const { height, width } = Dimensions.get("window");
 const MultiStepForm = () => {
   const storedItems = useStoredItems(["guestMode"]);
   const guestMode = storedItems.guestMode;
+  console.log(guestMode);
   const router = useRouter();
   const [step, setStep] = useState(1);
   const steps = [
@@ -44,7 +45,7 @@ const MultiStepForm = () => {
       id: 3,
       title: "What are your goals?",
       subtitle: "Choose your activity level and target.",
-      icon: "checkbox",
+      icon: "body",
     },
     {
       id: 4,
@@ -87,127 +88,181 @@ const MultiStepForm = () => {
     if (step > 1) setStep(step - 1);
   };
 
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <View className="flex-1 bg-white">
-          {/* Header */}
-          <LinearGradient
-            colors={
-              step === 4
-                ? ["#14b8a6", "#06b6d4"]
-                : ["#f97316", "#f43f5e", "#db2777"]
-            }
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={{
-              height: height * 0.22,
-              justifyContent: "center",
-              paddingTop: 35,
-              paddingLeft: 20,
-            }}
-          >
-            <View className="flex flex-col gap-3">
-              <View className="flex flex-row items-center gap-2">
-                <Ionicons name={currentStep.icon} color="white" size={26} />
-                <Text className="text-white mt-1">
-                  Step {step} of {steps.length}
-                </Text>
-              </View>
-              <Text className="text-white text-3xl font-semibold">
-                {currentStep.title}
-              </Text>
-              <Text className="text-white text-base leading-6">
-                {currentStep.subtitle}
+ return (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={{ flex: 1 }}>
+      <View className="flex-1 bg-white">
+        {/* Header */}
+        <LinearGradient
+          colors={
+            step === 4
+              ? ["#14b8a6", "#06b6d4"]
+              : ["#f97316", "#f43f5e", "#db2777"]
+          }
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            height: height * 0.22,
+            justifyContent: "center",
+            paddingTop: 35,
+            paddingLeft: 20,
+          }}
+        >
+          <View className="flex flex-col gap-3">
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name={currentStep.icon} color="white" size={26} />
+              <Text className="text-white mt-1">
+                Step {step} of {steps.length}
               </Text>
             </View>
-          </LinearGradient>
+            <Text className="text-white text-3xl font-semibold">
+              {currentStep.title}
+            </Text>
+            <Text className="text-white text-base leading-6">
+              {currentStep.subtitle}
+            </Text>
+          </View>
+        </LinearGradient>
 
-          {/* Body */}
+        {/* Body */}
+        {step === 4 ? (
           <View className="flex-1 bg-white">
             <ScrollView
               contentContainerStyle={{
                 paddingHorizontal: 20,
-                paddingVertical: 20,
-                paddingBottom: 100, // Extra padding to ensure content isn't cut off
-                flexGrow: 1,
+                paddingTop: 20,
+                paddingBottom: 120,
               }}
               showsVerticalScrollIndicator={false}
             >
-              {step === 1 && (
-                <StepOne
-                  formData={formData}
-                  updateField={updateField}
-                  guestMode={guestMode}
-                />
-              )}
-              {step === 2 && (
-                <StepTwo formData={formData} updateField={updateField} />
-              )}
-              {step === 3 && (
-                <StepThree formData={formData} updateField={updateField} />
-              )}
-              {step === 4 && (
-                <StepFour formData={formData} guestMode={guestMode} />
-              )}
+              <StepFour formData={formData} guestMode={guestMode} />
             </ScrollView>
 
             {/* Bottom section */}
-            <View className="px-5 pb-5">
+            <View className="px-5 pb-5 bg-white">
               {/* Progress Bar */}
               <View className="h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
                 <View
                   style={{ width: progressWidth }}
-                  className="h-2 bg-[#f43f5e] rounded-full"
+                  className="h-2 rounded-full bg-teal-500"
                 />
               </View>
 
               {/* Navigation Buttons */}
               <View className="flex-row justify-between">
-                {step > 1 ? (
-                  <TouchableOpacity
-                    onPress={handleBack}
-                    className="px-5 py-3 bg-gray-200 rounded-xl flex-row items-center"
-                  >
-                    <Ionicons name="arrow-back" size={18} color="#374151" />
-                    <Text className="text-gray-700 text-base ml-2">Back</Text>
-                  </TouchableOpacity>
-                ) : (
-                  <View />
-                )}
+                <TouchableOpacity
+                  onPress={handleBack}
+                  className="px-5 py-3 bg-gray-200 rounded-xl flex-row items-center"
+                >
+                  <Ionicons name="arrow-back" size={18} color="#374151" />
+                  <Text className="text-gray-700 text-base ml-2">Back</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   disabled={!canProceed}
                   activeOpacity={0.8}
                   onPress={handleNext}
-                  className={`px-5 py-3 rounded-xl flex-row items-center ${
-                    canProceed ? "bg-[#f43f5e]" : "bg-gray-300"
-                  }`}
+                  className="px-5 py-3 rounded-xl flex-row items-center bg-[#14b8a6]"
                 >
-                  <Text
-                    className={`text-base font-semibold ${
-                      canProceed ? "text-white" : "text-gray-500"
-                    }`}
-                  >
-                    {step === steps.length ? "Finish" : "Next"}
+                  <Text className="text-base font-semibold text-white">
+                    Finish
                   </Text>
                   <Ionicons
-                    name={step === steps.length ? "checkmark" : "arrow-forward"}
+                    name="checkmark"
                     size={18}
-                    color={canProceed ? "#fff" : "#9ca3af"}
+                    color="#fff"
                     style={{ marginLeft: 6 }}
                   />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
-  );
+        ) : (
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+          >
+            <View className="flex-1 bg-white">
+              <ScrollView
+                contentContainerStyle={{
+                  paddingHorizontal: 20,
+                  paddingTop: 20,
+                  paddingBottom: 120,
+                }}
+                showsVerticalScrollIndicator={false}
+              >
+                {step === 1 && (
+                  <StepOne
+                    formData={formData}
+                    updateField={updateField}
+                    guestMode={guestMode}
+                  />
+                )}
+                {step === 2 && (
+                  <StepTwo formData={formData} updateField={updateField} />
+                )}
+                {step === 3 && (
+                  <StepThree formData={formData} updateField={updateField} />
+                )}
+              </ScrollView>
+
+              {/* Bottom section */}
+              <View className="px-5 pb-5 bg-white">
+                {/* Progress Bar */}
+                <View className="h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+                  <View
+                    style={{ width: progressWidth }}
+                    className="h-2 rounded-full bg-[#f43f5e]"
+                  />
+                </View>
+
+                {/* Navigation Buttons */}
+                <View className="flex-row justify-between">
+                  {step > 1 ? (
+                    <TouchableOpacity
+                      onPress={handleBack}
+                      className="px-5 py-3 bg-gray-200 rounded-xl flex-row items-center"
+                    >
+                      <Ionicons name="arrow-back" size={18} color="#374151" />
+                      <Text className="text-gray-700 text-base ml-2">
+                        Back
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <View />
+                  )}
+
+                  <TouchableOpacity
+                    disabled={!canProceed}
+                    activeOpacity={0.8}
+                    onPress={handleNext}
+                    className={`px-5 py-3 rounded-xl flex-row items-center ${
+                      canProceed ? "bg-[#f43f5e]" : "bg-gray-300"
+                    }`}
+                  >
+                    <Text
+                      className={`text-base font-semibold ${
+                        canProceed ? "text-white" : "text-gray-500"
+                      }`}
+                    >
+                      Next
+                    </Text>
+                    <Ionicons
+                      name="arrow-forward"
+                      size={18}
+                      color={canProceed ? "#fff" : "#9ca3af"}
+                      style={{ marginLeft: 6 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        )}
+      </View>
+    </View>
+  </TouchableWithoutFeedback>
+);
 };
 
 export default MultiStepForm;

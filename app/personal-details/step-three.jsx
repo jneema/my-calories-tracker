@@ -130,7 +130,11 @@ const StepThree = ({ formData, updateField }) => {
             </View>
 
             {isSelected && (
-              <Ionicons name="checkmark-circle" size={22} color={option.color} />
+              <Ionicons
+                name="checkmark-circle"
+                size={22}
+                color={option.color}
+              />
             )}
           </TouchableOpacity>
         );
@@ -190,7 +194,11 @@ const StepThree = ({ formData, updateField }) => {
               </View>
 
               {isSelected && (
-                <Ionicons name="checkmark-circle" size={22} color={goal.color} />
+                <Ionicons
+                  name="checkmark-circle"
+                  size={22}
+                  color={goal.color}
+                />
               )}
             </TouchableOpacity>
           );

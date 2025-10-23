@@ -20,7 +20,7 @@ const AnimatedIcon = ({ name }) => {
   }, [name]);
 
   return (
-    <BlurView intensity={100} tint="light" style={styles.blurContainer}>
+    <BlurView intensity={50} tint="dark" style={styles.blurContainer}>
       <Animated.View
         style={[styles.iconContainer, { opacity, transform: [{ scale }] }]}
       >
