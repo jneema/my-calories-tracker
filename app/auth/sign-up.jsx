@@ -27,7 +27,8 @@ const SignUp = () => {
   const [focused, setFocused] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -64,8 +65,12 @@ const SignUp = () => {
   }, []);
 
   const validateForm = () => {
-    if (!formData.name.trim()) {
-      Alert.alert("Error", "Please enter your name");
+    if (!formData.firstName.trim()) {
+      Alert.alert("Error", "Please enter your first name");
+      return false;
+    }
+    if (!formData.lastName.trim()) {
+      Alert.alert("Error", "Please enter your last name");
       return false;
     }
     if (!formData.email.trim()) {
@@ -100,7 +105,10 @@ const SignUp = () => {
 
       await AsyncStorage.setItem("authToken", "mock-token-12345");
       await AsyncStorage.setItem("userEmail", formData.email);
-      await AsyncStorage.setItem("userName", formData.name);
+      await AsyncStorage.setItem(
+        "userName",
+        formData.firstName + " " + formData.lastName
+      );
       await AsyncStorage.setItem("guestMode", "false");
 
       router.replace("/personal-details");
@@ -208,9 +216,14 @@ const SignUp = () => {
           >
             {[
               {
-                label: "Full Name",
-                key: "name",
-                placeholder: "Enter your name",
+                label: "First Name",
+                key: "firstName",
+                placeholder: "Enter your first name",
+              },
+              {
+                label: "Last Name",
+                key: "lastName",
+                placeholder: "Enter your last name",
               },
               {
                 label: "Email",

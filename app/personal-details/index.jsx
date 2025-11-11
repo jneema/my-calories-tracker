@@ -55,7 +55,8 @@ const MultiStepForm = () => {
     },
   ];
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     gender: "",
     age: "",
     weight: "",

@@ -126,7 +126,7 @@ const HomePage = () => {
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <View>
-            <Text className="font-bold text-5xl">
+            <Text className="font-bold text-4xl">
               Hello{" "}
               {storedData.guestMode
                 ? storedData.userFormData?.name || "Guest"

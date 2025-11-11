@@ -4,12 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 const StepFour = ({ formData, guestMode }) => {
+  const fullName = `${formData.firstName} ${formData.lastName}`.trim();
   const infoCards = [
     ...(guestMode
       ? [
           {
             label: "Name",
-            value: formData.name,
+            value: fullName || "Guest User",
             icon: "person",
             color: "#FF5F00",
             bg: "#FFF6EF",

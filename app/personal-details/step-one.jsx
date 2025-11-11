@@ -11,12 +11,19 @@ const StepOne = ({ formData, updateField, guestMode }) => {
       {/* Show only when guestMode is "true" */}
       {guestMode && (
         <>
-          <Text className="text-gray-700 text-base mb-2">Name or Nickname</Text>
+          <Text className="text-gray-700 text-base mb-2">First Name</Text>
           <TextInput
-            value={formData.name}
-            onChangeText={(t) => updateField("name", t)}
+            value={formData.firstName}
+            onChangeText={(t) => updateField("firstName", t)}
             className="rounded-lg px-4 py-3 border mb-5 border-gray-300"
-            placeholder="Enter your name"
+            placeholder="Enter first name"
+          />
+          <Text className="text-gray-700 text-base mb-2">Last Name</Text>
+          <TextInput
+            value={formData.lastName}
+            onChangeText={(t) => updateField("lastName", t)}
+            className="rounded-lg px-4 py-3 border mb-5 border-gray-300"
+            placeholder="Enter last name"
           />
         </>
       )}
