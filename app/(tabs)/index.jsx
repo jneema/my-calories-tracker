@@ -8,17 +8,29 @@ import { router } from "expo-router";
 import useStoredItems from "../../hooks/useStoredItem";
 
 const HomePage = () => {
-  const storedData = useStoredItems(["guestMode", "userFormData", "userName"]);
+  const storedData = useStoredItems([
+    "guestMode",
+    "userFormData",
+    "userName",
+    "calorieTarget",
+  ]);
   console.log("Stored values:", storedData);
+
   const date = new Date();
+  const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
-  const fullDate = `${month} ${day}, ${year}`;
+  const fullDate = `${month} ${day} ${year}`;
+
+  const guestName =
+    storedData.userFormData?.firstName +
+      " " +
+      storedData.userFormData?.lastName || "Guest";
 
   // Progress calculation
   const consumed = 1450;
-  const total = 2000;
+  const total = storedData.calorieTarget;
   const remaining = total - consumed;
   const percentage = Math.round((consumed / total) * 100);
 
@@ -128,11 +140,11 @@ const HomePage = () => {
           <View>
             <Text className="font-bold text-4xl">
               Hello{" "}
-              {storedData.guestMode
-                ? storedData.userFormData?.name || "Guest"
-                : storedData.userName || "User"}
+              {storedData.guestMode ? guestName : storedData.userName || "User"}
             </Text>
-            <Text className="text-base text-gray-600">Today, {fullDate}</Text>
+            <Text className="text-base text-gray-600">
+              {dayName}, {fullDate}
+            </Text>
           </View>
           <View className="flex flex-row space-x-4">
             <Ionicons name="notifications-outline" size={24} color="black" />

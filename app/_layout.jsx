@@ -13,12 +13,8 @@ const RootLayout = () => {
   //     console.error("Error clearing storage:", error);
   //   }
   // };
-
   // // Call it
   // clearAllStorage();
-
-
-  const [showCustomSplash, setShowCustomSplash] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const [userStatus, setUserStatus] = useState({
     hasSeenOnboarding: false,
@@ -29,8 +25,12 @@ const RootLayout = () => {
   const router = useRouter();
   const DEV_MODE = false;
 
+  const MINIMUM_SPLASH_TIME = 3000; // 3 seconds
+
   useEffect(() => {
     const checkUserStatus = async () => {
+      const startTime = Date.now();
+
       try {
         const [hasSeenOnboarding, authToken, hasPersonalDetails, guestMode] =
           await Promise.all([
@@ -46,10 +46,25 @@ const RootLayout = () => {
           hasPersonalDetails: hasPersonalDetails === "true",
           isGuestMode: guestMode === "true",
         });
+
+        // Calculate remaining time to meet minimum splash duration
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, MINIMUM_SPLASH_TIME - elapsedTime);
+
+        // Wait for remaining time before marking as ready
+        setTimeout(() => {
+          setIsReady(true);
+        }, remainingTime);
       } catch (err) {
         console.error("Error checking user status:", err);
-      } finally {
-        setIsReady(true);
+
+        // Still respect minimum time even on error
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, MINIMUM_SPLASH_TIME - elapsedTime);
+
+        setTimeout(() => {
+          setIsReady(true);
+        }, remainingTime);
       }
     };
 
@@ -57,7 +72,7 @@ const RootLayout = () => {
   }, []);
 
   useEffect(() => {
-    if (!showCustomSplash && isReady) {
+    if (isReady) {
       if (DEV_MODE) {
         router.replace("/auth/forgot-password");
         return;
@@ -65,25 +80,20 @@ const RootLayout = () => {
 
       // Determine navigation based on user status
       if (!userStatus.hasSeenOnboarding) {
-        // Brand new user - show onboarding
         router.replace("/onboarding");
       } else if (!userStatus.isAuthenticated && !userStatus.isGuestMode) {
-        // Seen onboarding but not authenticated - go to welcome screen
         router.replace("/onboarding/welcome");
       } else if (!userStatus.hasPersonalDetails) {
-        // Authenticated or guest but no personal details - collect them
         router.replace("/personal-details");
       } else {
-        // Fully set up user - go to app
         router.replace("/(tabs)");
       }
     }
-  }, [showCustomSplash, isReady]);
+  }, [isReady, userStatus]);
 
-  if (!isReady) return null;
-
-  if (showCustomSplash) {
-    return <SplashScreen onFinish={() => setShowCustomSplash(false)} />;
+  // Show splash while checking storage
+  if (!isReady) {
+    return <SplashScreen onFinish={() => {}} />;
   }
 
   return (

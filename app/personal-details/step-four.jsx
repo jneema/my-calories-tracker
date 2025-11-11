@@ -1,9 +1,17 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { calculateCalorieGoal } from "../../hooks/useCalculateCalories";
 
 const StepFour = ({ formData, guestMode }) => {
+  const [calorieTarget, setCalorieTarget] = useState(0);
+  useEffect(() => {
+    if (formData) {
+      const target = calculateCalorieGoal(formData);
+      setCalorieTarget(target);
+    }
+  }, [formData]);
   const fullName = `${formData.firstName} ${formData.lastName}`.trim();
   const infoCards = [
     ...(guestMode
@@ -70,7 +78,7 @@ const StepFour = ({ formData, guestMode }) => {
           className="text-5xl font-bold text-white"
           style={{ lineHeight: 58 }}
         >
-          2,150
+          {calorieTarget > 0 ? calorieTarget : "--"}
         </Text>
         <Text className="font-medium text-white/90">kcal per day</Text>
       </LinearGradient>

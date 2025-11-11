@@ -5,27 +5,38 @@ import { Ionicons } from "@expo/vector-icons";
 import useStoredItems from "../../hooks/useStoredItem";
 
 const Profile = () => {
-  const storedData = useStoredItems(["guestMode", "userFormData", "userName"]);
+  const storedData = useStoredItems([
+    "guestMode",
+    "userFormData",
+    "userName",
+    "calorieTarget",
+  ]);
   const currentWeight = storedData?.userFormData?.weight || "Not set";
   const currentHeight = storedData?.userFormData?.height || "Not set";
   const weightGoal = storedData?.userFormData?.goal;
-  console.log("Stored values:", storedData);
+  // console.log("Stored values:", storedData);
+  const guestName = storedData?.userFormData?.firstName
+    ? `${storedData.userFormData.firstName} ${storedData.userFormData.lastName}`.trim()
+    : "Guest User";
+
+  const streakAmount = 7;
+  const mealsAmount = 156;
 
   const stats = [
     {
-      title: "Streak",
+      title: `${streakAmount > 1 ? "days" : "day"} streak`,
       icon: "rocket",
-      amount: 5,
+      amount: streakAmount,
       color: "#FF5F00",
     },
     {
       title: "Kgs Lost",
-      icon: "analytics",
+      icon: "body",
       amount: -5,
       color: "#EB0071",
     },
     {
-      title: "Meals",
+      title: `${mealsAmount > 1 ? "meals" : "meal"} logged`,
       icon: "restaurant",
       amount: 156,
       color: "#00C9A7",
@@ -36,12 +47,12 @@ const Profile = () => {
     {
       id: 1,
       name: "Current Weight",
-      value: currentWeight,
+      value: `${currentWeight} kg`,
     },
     {
       id: 2,
       name: "Height",
-      value: currentHeight,
+      value: `${currentHeight} cm`,
     },
     {
       id: 3,
@@ -51,7 +62,7 @@ const Profile = () => {
     {
       id: 4,
       name: "Daily Calorie Target",
-      value: storedData?.userFormData?.calorieTarget || "Not set",
+      value: `${storedData?.calorieTarget} kcal` || "Not set",
     },
   ];
 
@@ -92,14 +103,14 @@ const Profile = () => {
           >
             <Text className="text-white font-semibold text-5xl">
               {storedData?.guestMode
-                ? storedData?.userFormData?.name?.[0]?.toUpperCase() || "G"
+                ? guestName?.[0]?.toUpperCase() || "G"
                 : storedData?.userName?.[0]?.toUpperCase() || "U"}
             </Text>
           </View>
           <View className="mt-2 flex-col gap-1 items-center">
             <Text className="font-bold text-2xl">
               {storedData?.guestMode
-                ? storedData?.userFormData?.name || "Guest User"
+                ? guestName || "Guest User"
                 : storedData?.userName || "User"}
             </Text>
             <Text className="text-gray-500">
@@ -161,7 +172,7 @@ const Profile = () => {
                 </View>
 
                 <View className="flex-row items-center">
-                  <Text className="text-blue-400 text-sm">Edit</Text>
+                  <Text className="text-blue-400">Edit</Text>
                 </View>
               </View>
             </TouchableOpacity>
