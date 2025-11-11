@@ -91,10 +91,15 @@ const Profile = () => {
   ];
 
   return (
-    <SafeAreaView className="flex-1 px-5 bg-gray-50">
+    <SafeAreaView
+      className="flex-1 px-5 bg-gray-50"
+      edges={["top", "left", "right"]}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+        bounces={false}
+        alwaysBounceVertical={false}
       >
         <View className="flex-1 items-center justify-center bg-transparent mt-5">
           <View
@@ -130,7 +135,7 @@ const Profile = () => {
               >
                 <View className="flex flex-col items-center">
                   <View
-                    className="p-3 rounded-xl mb-10"
+                    className="p-3 rounded-xl mb-auto"
                     style={{ backgroundColor: item.color }}
                   >
                     <Ionicons name={item.icon} size={24} color="#fff" />

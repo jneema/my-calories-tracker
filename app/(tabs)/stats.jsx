@@ -12,7 +12,7 @@ const Stats = () => {
   const currentDate = now.getDate();
   const currentMonth = now.getMonth();
   const currentWeekOfMonth = Math.ceil(currentDate / 7);
-  const monthName = now.toLocaleString('default', { month: 'long' });
+  const monthName = now.toLocaleString("default", { month: "long" });
   const currentYear = now.getFullYear();
 
   const [selectedTimePeriod, setSelectedTimePeriod] = useState("Week");
@@ -257,10 +257,15 @@ const Stats = () => {
   const yAxisMax = Math.ceil(maxChartValue / 1000) * 1000;
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 px-5">
+    <SafeAreaView
+      className="flex-1 px-5 bg-gray-50"
+      edges={["top", "left", "right"]}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+        bounces={false}
+        alwaysBounceVertical={false}
       >
         {/* Header */}
         <View className="flex-row items-center justify-between mt-5">

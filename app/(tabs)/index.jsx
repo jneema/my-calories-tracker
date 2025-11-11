@@ -131,10 +131,15 @@ const HomePage = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 px-5 bg-gray-50">
+    <SafeAreaView
+      className="flex-1 px-5 bg-gray-50"
+      edges={["top", "left", "right"]}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
+        bounces={false}
+        alwaysBounceVertical={false}
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <View>
