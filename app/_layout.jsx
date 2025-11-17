@@ -23,7 +23,7 @@ const RootLayout = () => {
     isGuestMode: false,
   });
   const router = useRouter();
-  const DEV_MODE = true;
+  const DEV_MODE = false;
 
   const MINIMUM_SPLASH_TIME = 3000; // 3 seconds
 
@@ -74,7 +74,7 @@ const RootLayout = () => {
   useEffect(() => {
     if (isReady) {
       if (DEV_MODE) {
-        router.replace("/onboarding");
+        router.replace("/auth/forgot-password");
         return;
       }
 
