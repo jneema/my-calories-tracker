@@ -6,13 +6,16 @@ import { calculateCalorieGoal } from "../../hooks/useCalculateCalories";
 
 const StepFour = ({ formData, guestMode }) => {
   const [calorieTarget, setCalorieTarget] = useState(0);
+
   useEffect(() => {
     if (formData) {
       const target = calculateCalorieGoal(formData);
       setCalorieTarget(target);
     }
   }, [formData]);
+
   const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+
   const infoCards = [
     ...(guestMode
       ? [
@@ -20,8 +23,8 @@ const StepFour = ({ formData, guestMode }) => {
             label: "Name",
             value: fullName || "Guest User",
             icon: "person",
-            color: "#FF5F00",
-            bg: "#FFF6EF",
+            color: "#0891b2",
+            bg: "#ecfeff",
           },
         ]
       : []),
@@ -29,29 +32,29 @@ const StepFour = ({ formData, guestMode }) => {
       label: "Gender",
       value: formData.gender,
       icon: "male-female",
-      color: "#EB0071",
-      bg: "#FFF0F6",
+      color: "#0284c7",
+      bg: "#e0f2fe",
     },
     {
       label: "Age",
       value: formData.age,
       icon: "hourglass",
-      color: "#00C9A7",
-      bg: "#EFFFFB",
+      color: "#0369a1",
+      bg: "#dbeafe",
     },
     {
       label: "Weight",
       value: `${formData.weight} kg`,
       icon: "fitness",
-      color: "#4A90E2",
-      bg: "#EFF6FF",
+      color: "#075985",
+      bg: "#e0f2fe",
     },
     {
       label: "Goal",
       value: formData.goal,
       icon: "flag",
-      color: "#FACC15",
-      bg: "#FFFBEB",
+      color: "#0c4a6e",
+      bg: "#f0f9ff",
     },
   ];
 
@@ -59,7 +62,7 @@ const StepFour = ({ formData, guestMode }) => {
     <View>
       {/* Gradient Summary Card */}
       <LinearGradient
-        colors={["#14b8a6", "#06b6d4"]}
+        colors={["#0e7490", "#0891b2", "#06b6d4"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
@@ -82,6 +85,7 @@ const StepFour = ({ formData, guestMode }) => {
         </Text>
         <Text className="font-medium text-white/90">kcal per day</Text>
       </LinearGradient>
+
       {/* Info Cards */}
       <View className="mt-3">
         {infoCards.map((item, index) => (
@@ -102,7 +106,6 @@ const StepFour = ({ formData, guestMode }) => {
             >
               <Ionicons name={item.icon} size={20} color={item.color} />
             </View>
-
             <View className="ml-3 flex-row justify-between flex-1 items-center">
               <Text className="text-[16px] font-semibold text-gray-800">
                 {item.label}
@@ -122,11 +125,11 @@ const StepFour = ({ formData, guestMode }) => {
           marginTop: 10,
           marginBottom: 10,
           borderWidth: 2,
-          borderColor: "#14b8a6",
+          borderColor: "#0891b2",
           backgroundColor: "transparent",
         }}
       >
-        <Ionicons name="information-circle-outline" size={22} color="#14b8a6" />
+        <Ionicons name="information-circle-outline" size={22} color="#0891b2" />
         <Text
           className="text-[#0f172a] text-[15px] ml-2 leading-6 flex-1"
           style={{ flexWrap: "wrap" }}

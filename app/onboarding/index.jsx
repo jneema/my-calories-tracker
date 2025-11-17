@@ -11,25 +11,24 @@ import styles from "../../styles";
 
 const steps = [
   {
-    icon: "restaurant",
-    title: "Log your meals easily",
-    description: "Type, scan barcodes, or search our extensive food database.",
-    colors: ["#f97316", "#f43f5e", "#db2777"],
-  },
-  {
     icon: "barbell",
-    title: "Track your progress",
-    description: "Monitor calories and nutrients to reach your goals faster.",
-    colors: ["#22c55e", "#16a34a", "#0f766e"],
+    title: "Track every workout",
+    description: "Log exercises, sets, and reps. Build custom routines that fit your goals.",
+    colors: ["#082f49", "#0c4a6e", "#075985"], 
   },
   {
-    icon: "heart",
-    title: "Stay healthy, your way",
-    description: "Personalize your plan to match your lifestyle and taste.",
-    colors: ["#3b82f6", "#6366f1", "#8b5cf6"],
+    icon: "stats-chart",
+    title: "Monitor your progress",
+    description: "Visualize your strength gains, track personal records, and celebrate milestones.",
+    colors: ["#0c4a6e", "#075985", "#0369a1"],
+  },
+  {
+    icon: "trophy",
+    title: "Reach your peak",
+    description: "Set goals, stay consistent, and become the strongest version of yourself.",
+    colors: ["#0e7490", "#0891b2", "#06b6d4"], 
   },
 ];
-
 const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -71,7 +70,7 @@ const Onboarding = () => {
           <DotIndicators total={steps.length} active={currentStep} />
         </View>
 
-        {/* Bottom “Next” button */}
+        {/* Bottom "Next" button */}
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
           <Text style={styles.nextText}>
             {currentStep === steps.length - 1 ? "Finish" : "Next"}

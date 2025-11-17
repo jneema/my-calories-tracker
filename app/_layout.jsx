@@ -74,7 +74,7 @@ const RootLayout = () => {
   useEffect(() => {
     if (isReady) {
       if (DEV_MODE) {
-        router.replace("/auth/forgot-password");
+        router.replace("/onboarding");
         return;
       }
 

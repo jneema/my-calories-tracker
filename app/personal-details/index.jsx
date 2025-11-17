@@ -61,6 +61,7 @@ const MultiStepForm = () => {
     age: "",
     weight: "",
     height: "",
+    waistLength: "",
     activityLevel: "",
     goal: "",
   });
@@ -113,8 +114,8 @@ const MultiStepForm = () => {
           <LinearGradient
             colors={
               step === 4
-                ? ["#14b8a6", "#06b6d4"]
-                : ["#f97316", "#f43f5e", "#db2777"]
+                ? ["#0e7490", "#0891b2", "#06b6d4"]
+                : ["#0c4a6e", "#075985", "#0369a1"]
             }
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -161,7 +162,7 @@ const MultiStepForm = () => {
                 <View className="h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
                   <View
                     style={{ width: progressWidth }}
-                    className="h-2 rounded-full bg-teal-500"
+                    className="h-2 rounded-full bg-cyan-600"
                   />
                 </View>
 
@@ -179,7 +180,7 @@ const MultiStepForm = () => {
                     disabled={!canProceed}
                     activeOpacity={0.8}
                     onPress={handleNext}
-                    className="px-5 py-3 rounded-xl flex-row items-center bg-[#14b8a6]"
+                    className="px-5 py-3 rounded-xl flex-row items-center bg-cyan-600"
                   >
                     <Text className="text-base font-semibold text-white">
                       Finish
@@ -229,7 +230,7 @@ const MultiStepForm = () => {
                   <View className="h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
                     <View
                       style={{ width: progressWidth }}
-                      className="h-2 rounded-full bg-[#f43f5e]"
+                      className="h-2 rounded-full bg-sky-700"
                     />
                   </View>
 
@@ -254,7 +255,7 @@ const MultiStepForm = () => {
                       activeOpacity={0.8}
                       onPress={handleNext}
                       className={`px-5 py-3 rounded-xl flex-row items-center ${
-                        canProceed ? "bg-[#f43f5e]" : "bg-gray-300"
+                        canProceed ? "bg-sky-700" : "bg-gray-300"
                       }`}
                     >
                       <Text

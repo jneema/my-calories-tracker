@@ -28,6 +28,14 @@ const StepTwo = ({ formData, updateField }) => {
         className="rounded-lg px-4 py-3 border border-gray-300"
         placeholder="Height(cm)"
       />
+        <Text className="text-gray-700 text-base mb-2 mt-5">Waist Length</Text>
+      <TextInput
+        value={formData.waistLength}
+        onChangeText={(t) => updateField("waistLength", t)}
+        keyboardType="numeric"
+        className="rounded-lg px-4 py-3 border border-gray-300"
+        placeholder="Waist Length(cm)"
+      />
     </>
   );
 };

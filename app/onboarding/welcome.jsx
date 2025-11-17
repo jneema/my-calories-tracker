@@ -70,7 +70,7 @@ const Welcome = () => {
           >
             <Animated.View style={[guestAnimatedStyle]}>
               <LinearGradient
-                colors={["#FF5F00", "#EB0071"]}
+                colors={["#0c4a6e", "#075985", "#0369a1"]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={{
@@ -108,7 +108,7 @@ const Welcome = () => {
                       Continue as Guest
                     </Text>
                     <Text className="text-white text-base leading-6">
-                      Start tracking immediately. Your data is saved locally on
+                      Start training immediately. Your data is saved locally on
                       this device.
                     </Text>
                   </View>
@@ -145,7 +145,7 @@ const Welcome = () => {
                   borderRadius: 16,
                   padding: 16,
                   borderWidth: 2,
-                  borderColor: signInPressed ? "#007bff" : "#e5e7eb",
+                  borderColor: signInPressed ? "#1f2937" : "#e5e7eb",
                   shadowColor: "#000",
                   shadowOffset: { width: 0, height: 8 },
                   shadowOpacity: signInPressed ? 0.15 : 0.08,
@@ -162,30 +162,31 @@ const Welcome = () => {
                       borderRadius: 24,
                       overflow: "hidden",
                       padding: 8,
-                      backgroundColor: signInPressed ? "#007bff20" : "#f3f4f6",
+                      backgroundColor: signInPressed ? "#1f293720" : "#f3f4f6",
                     }}
                   >
                     <Ionicons
                       name="key-outline"
                       size={28}
-                      color={signInPressed ? "#007bff" : "#1f2937"}
+                      color={signInPressed ? "#1f2937" : "#1f2937"}
                     />
                   </View>
                   <Ionicons
                     name="chevron-forward-circle"
                     size={28}
-                    color={signInPressed ? "#007bff" : "#9ca3af"}
+                    color={signInPressed ? "#1f2937" : "#9ca3af"}
                   />
                 </View>
                 <View className="flex gap-2">
                   <Text
                     className="text-3xl font-semibold"
-                    style={{ color: signInPressed ? "#007bff" : "#1f2937" }}
+                    style={{ color: signInPressed ? "#1f2937" : "#1f2937" }}
                   >
                     Create Account / Sign In
                   </Text>
                   <Text className="text-gray-700 text-base leading-6">
-                    Sync your data across devices and never lose progress.
+                    Sync your workouts across devices and track your progress
+                    everywhere.
                   </Text>
                 </View>
               </View>
@@ -212,7 +213,7 @@ const Welcome = () => {
             style={{
               width: "33%",
               height: "100%",
-              backgroundColor: "#FF5F00",
+              backgroundColor: "#111827",
               borderRadius: 9999,
             }}
           />

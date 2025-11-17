@@ -58,7 +58,7 @@ const SplashScreen = ({ onFinish }) => {
   return (
     <View style={{ flex: 1 }}>
       <LinearGradient
-        colors={["#f97316", "#f43f5e", "#db2777"]}
+        colors={["#0c4a6e", "#075985", "#0369a1"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -82,7 +82,7 @@ const SplashScreen = ({ onFinish }) => {
               transform: [{ scale: logoScale }],
             }}
           >
-            <Ionicons name="restaurant" size={48} color="#f43f5e" />
+            <Ionicons name="fitness" size={48} color="#111827" />
           </Animated.View>
 
           <Animated.View
@@ -101,7 +101,7 @@ const SplashScreen = ({ onFinish }) => {
                 letterSpacing: -1,
               }}
             >
-              MyCal
+              FitTrack
             </Text>
             <Text
               style={{
@@ -110,7 +110,7 @@ const SplashScreen = ({ onFinish }) => {
                 marginTop: 8,
               }}
             >
-              Track your meals, stay on goal.
+              Your personal fitness companion.
             </Text>
           </Animated.View>
 
