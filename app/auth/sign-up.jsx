@@ -131,7 +131,7 @@ const SignUp = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
     >
       <LinearGradient
-        colors={["#3b82f6", "#6366f1", "#8b5cf6"]}
+        colors={["#0c4a6e", "#075985", "#0369a1"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flex: 1 }}
@@ -166,7 +166,7 @@ const SignUp = () => {
                 transform: [{ scale: logoScale }],
               }}
             >
-              <Ionicons name="restaurant" size={48} color="#8b5cf6" />
+              <Ionicons name="fitness" size={48} color="#0369a1" />
             </Animated.View>
 
             <Animated.View
@@ -195,7 +195,7 @@ const SignUp = () => {
                   marginBottom: 30,
                 }}
               >
-                Start your health journey today.
+                Start your fitness journey today.
               </Text>
             </Animated.View>
           </View>
@@ -270,14 +270,14 @@ const SignUp = () => {
                     backgroundColor: "#fff",
                     borderWidth: 2,
                     borderColor:
-                      focused === field.key ? "#6366f1" : "rgba(229,231,235,1)",
+                      focused === field.key ? "#0369a1" : "rgba(229,231,235,1)",
                     borderRadius: 12,
                     paddingVertical: 12,
                     paddingHorizontal: 14,
                     fontSize: 15,
                     color: "#111827",
                     shadowColor:
-                      focused === field.key ? "#6366f1" : "transparent",
+                      focused === field.key ? "#0369a1" : "transparent",
                     shadowOpacity: 0.25,
                     shadowRadius: focused === field.key ? 10 : 0,
                     elevation: focused === field.key ? 3 : 0,
@@ -296,7 +296,7 @@ const SignUp = () => {
               <Checkbox
                 value={isChecked}
                 onValueChange={setIsChecked}
-                color={isChecked ? "#3b82f6" : undefined}
+                color={isChecked ? "#0369a1" : undefined}
                 disabled={loading}
               />
               <Text style={{ color: "black", marginLeft: 8, flex: 1 }}>
@@ -310,7 +310,7 @@ const SignUp = () => {
               disabled={loading}
               activeOpacity={0.85}
               style={{
-                backgroundColor: loading ? "#9ca3af" : "#6366f1",
+                backgroundColor: loading ? "#9ca3af" : "#0369a1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -354,9 +354,9 @@ const SignUp = () => {
               disabled={loading}
               activeOpacity={0.7}
               style={{
-                backgroundColor: "rgba(99,102,241,0.08)",
+                backgroundColor: "rgba(3,105,161,0.08)",
                 borderWidth: 2,
-                borderColor: "#6366f1",
+                borderColor: "#0369a1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -364,10 +364,10 @@ const SignUp = () => {
                 justifyContent: "center",
               }}
             >
-              <Ionicons name="logo-google" size={16} color="#6366f1" />
+              <Ionicons name="logo-google" size={16} color="#0369a1" />
               <Text
                 style={{
-                  color: "#6366f1",
+                  color: "#0369a1",
                   fontSize: 16,
                   fontWeight: "600",
                   letterSpacing: 0.3,
@@ -392,7 +392,7 @@ const SignUp = () => {
               <TouchableOpacity onPress={() => router.push("/auth/sign-in")}>
                 <Text
                   style={{
-                    color: "#6366f1",
+                    color: "#0369a1",
                     fontWeight: "600",
                     fontSize: 15,
                   }}

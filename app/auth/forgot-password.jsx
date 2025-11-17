@@ -66,7 +66,7 @@ const ForgotPassword = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
     >
       <LinearGradient
-        colors={["#14b8a6", "#06b6d4", "#2563eb"]}
+        colors={["#0c4a6e", "#075985", "#0369a1"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flex: 1 }}
@@ -103,7 +103,7 @@ const ForgotPassword = () => {
             <Ionicons
               name={sent ? "checkmark-circle" : "mail-outline"}
               size={52}
-              color={sent ? "#22c55e" : "#06b6d4"}
+              color={sent ? "#22c55e" : "#0369a1"}
             />
           </Animated.View>
 
@@ -160,7 +160,7 @@ const ForgotPassword = () => {
                     textAlign: "center",
                   }}
                 >
-                  We’ve sent a password reset link to{" "}
+                  We've sent a password reset link to{" "}
                   <Text style={{ fontWeight: "600" }}>{formData.email}</Text>.
                   Please check your inbox.
                 </Text>
@@ -204,13 +204,13 @@ const ForgotPassword = () => {
                     backgroundColor: "#fff",
                     borderWidth: 2,
                     borderColor:
-                      focused === "email" ? "#06b6d4" : "rgba(229,231,235,1)",
+                      focused === "email" ? "#0369a1" : "rgba(229,231,235,1)",
                     borderRadius: 12,
                     paddingVertical: 12,
                     paddingHorizontal: 14,
                     fontSize: 15,
                     color: "#111827",
-                    shadowColor: focused === "email" ? "#06b6d4" : "transparent",
+                    shadowColor: focused === "email" ? "#0369a1" : "transparent",
                     shadowOpacity: 0.25,
                     shadowRadius: focused === "email" ? 10 : 0,
                     elevation: focused === "email" ? 3 : 0,
@@ -222,7 +222,7 @@ const ForgotPassword = () => {
                   activeOpacity={0.85}
                   onPress={handleSend}
                   style={{
-                    backgroundColor: "#06b6d4",
+                    backgroundColor: "#0369a1",
                     paddingVertical: 14,
                     borderRadius: 12,
                     alignItems: "center",
@@ -247,7 +247,7 @@ const ForgotPassword = () => {
                 activeOpacity={0.85}
                 onPress={() => router.push("/auth/sign-in")}
                 style={{
-                  borderColor: "#2563eb",
+                  borderColor: "#0369a1",
                   borderWidth: 2,
                   paddingVertical: 14,
                   borderRadius: 12,
@@ -257,7 +257,7 @@ const ForgotPassword = () => {
               >
                 <Text
                   style={{
-                    color: "#2563eb",
+                    color: "#0369a1",
                     fontSize: 16,
                     fontWeight: "600",
                     letterSpacing: 0.3,

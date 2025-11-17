@@ -23,7 +23,7 @@ const RootLayout = () => {
     isGuestMode: false,
   });
   const router = useRouter();
-  const DEV_MODE = false;
+  const DEV_MODE = true;
 
   const MINIMUM_SPLASH_TIME = 3000; // 3 seconds
 

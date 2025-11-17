@@ -82,7 +82,7 @@ const SplashScreen = ({ onFinish }) => {
               transform: [{ scale: logoScale }],
             }}
           >
-            <Ionicons name="fitness" size={48} color="#111827" />
+            <Ionicons name="fitness" size={48} color="#0369a1" />
           </Animated.View>
 
           <Animated.View

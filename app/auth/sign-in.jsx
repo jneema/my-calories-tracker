@@ -64,7 +64,7 @@ const SignIn = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
     >
       <LinearGradient
-        colors={["#f97316", "#f43f5e", "#db2777"]}
+        colors={["#0c4a6e", "#075985", "#0369a1"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flex: 1 }}
@@ -99,7 +99,7 @@ const SignIn = () => {
                 transform: [{ scale: logoScale }],
               }}
             >
-              <Ionicons name="restaurant" size={48} color="#f43f5e" />
+              <Ionicons name="fitness" size={48} color="#0369a1" />
             </Animated.View>
 
             <Animated.View
@@ -118,7 +118,7 @@ const SignIn = () => {
                   letterSpacing: -1,
                 }}
               >
-                Welcome Back{" "}
+                Welcome Back
               </Text>
               <Text
                 style={{
@@ -128,7 +128,7 @@ const SignIn = () => {
                   marginBottom: 30,
                 }}
               >
-                Sign in to continue tracking{" "}
+                Sign in to continue your journey
               </Text>
             </Animated.View>
           </View>
@@ -182,14 +182,14 @@ const SignIn = () => {
                     backgroundColor: "#fff",
                     borderWidth: 2,
                     borderColor:
-                      focused === field.key ? "#f43f5e" : "rgba(229,231,235,1)",
+                      focused === field.key ? "#0369a1" : "rgba(229,231,235,1)",
                     borderRadius: 12,
                     paddingVertical: 12,
                     paddingHorizontal: 14,
                     fontSize: 15,
                     color: "#111827",
                     shadowColor:
-                      focused === field.key ? "#f43f5e" : "transparent",
+                      focused === field.key ? "#0369a1" : "transparent",
                     shadowOpacity: 0.25,
                     shadowRadius: focused === field.key ? 10 : 0,
                     elevation: focused === field.key ? 3 : 0,
@@ -215,7 +215,7 @@ const SignIn = () => {
             <TouchableOpacity
               activeOpacity={0.85}
               style={{
-                backgroundColor: "#f43f5e",
+                backgroundColor: "#0369a1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -245,9 +245,9 @@ const SignIn = () => {
             <TouchableOpacity
               activeOpacity={0.7}
               style={{
-                backgroundColor: "rgba(244,63,94,0.05)",
+                backgroundColor: "rgba(3,105,161,0.05)",
                 borderWidth: 2,
-                borderColor: "#f43f5e",
+                borderColor: "#0369a1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -257,10 +257,10 @@ const SignIn = () => {
                 justifyContent: "center",
               }}
             >
-              <Ionicons name="logo-google" size={16} color="#f43f5e" />
+              <Ionicons name="logo-google" size={16} color="#0369a1" />
               <Text
                 style={{
-                  color: "#f43f5e",
+                  color: "#0369a1",
                   fontSize: 16,
                   fontWeight: "600",
                   letterSpacing: 0.3,
@@ -277,9 +277,9 @@ const SignIn = () => {
                 router.replace("/(tabs)");
               }}
               style={{
-                backgroundColor: "rgba(244,63,94,0.05)",
+                backgroundColor: "rgba(3,105,161,0.05)",
                 borderWidth: 2,
-                borderColor: "#f43f5e",
+                borderColor: "#0369a1",
                 paddingVertical: 14,
                 borderRadius: 12,
                 alignItems: "center",
@@ -292,7 +292,7 @@ const SignIn = () => {
             >
               <Text
                 style={{
-                  color: "#f43f5e",
+                  color: "#0369a1",
                   fontSize: 16,
                   fontWeight: "600",
                   letterSpacing: 0.3,
@@ -310,7 +310,7 @@ const SignIn = () => {
               <TouchableOpacity onPress={() => router.push("/auth/sign-up")}>
                 <Text
                   style={{
-                    color: "#f43f5e",
+                    color: "#0369a1",
                     fontWeight: "600",
                     textDecorationLine: "underline",
                   }}
