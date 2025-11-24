@@ -71,7 +71,7 @@ const Profile = () => {
       id: 1,
       name: "Profile Settings",
       icon: "person-circle",
-      iconColor: "#007bff",
+      iconColor: "#0891b2",
       enabled: true,
     },
     {
@@ -103,7 +103,7 @@ const Profile = () => {
       >
         <View className="flex-1 items-center justify-center bg-transparent mt-5">
           <View
-            className="bg-blue-600 rounded-full  items-center justify-center"
+            className="bg-[#0c4a6e] rounded-full  items-center justify-center"
             style={{ width: 100, height: 100 }}
           >
             <Text className="text-white font-semibold text-5xl">
@@ -177,7 +177,7 @@ const Profile = () => {
                 </View>
 
                 <View className="flex-row items-center">
-                  <Text className="text-blue-400">Edit</Text>
+                  <Text className="text-[#0891b2]">Edit</Text>
                 </View>
               </View>
             </TouchableOpacity>
