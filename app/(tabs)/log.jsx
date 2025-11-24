@@ -8,10 +8,26 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Log = () => {
   const meals = ["Breakfast", "Lunch", "Dinner", "Snack"];
   const [selectedMeal, setSelectedMeal] = useState("Breakfast");
+  const [waterIntake, setWaterIntake] = useState(5);
+  const waterGoal = 8;
+  const waterPercentage = Math.round((waterIntake / waterGoal) * 100);
+
+  const addWaterGlass = () => {
+    if (waterIntake < waterGoal) {
+      setWaterIntake((prev) => prev + 1);
+    }
+  };
+
+  const removeWaterGlass = () => {
+    if (waterIntake > 0) {
+      setWaterIntake((prev) => prev - 1);
+    }
+  };
 
   const suggestedFoods = [
     {
@@ -67,7 +83,7 @@ const Log = () => {
         </View>
 
         {/* Meal Selector */}
-        <View className="mt-5">
+        <View className="mt-1">
           <Text className="font-bold text-2xl mb-3">Select Meal</Text>
           <View className="flex-row justify-between">
             {meals.map((meal) => {
@@ -78,7 +94,7 @@ const Log = () => {
                   activeOpacity={0.8}
                   onPress={() => setSelectedMeal(meal)}
                   className={`flex-1 mx-1 rounded-3xl py-3 flex-row items-center justify-center ${
-                    isSelected ? "bg-blue-600" : "bg-gray-200"
+                    isSelected ? "bg-[#0c4a6e]" : "bg-gray-200"
                   }`}
                 >
                   <Text
@@ -107,21 +123,21 @@ const Log = () => {
           </View>
 
           <View className="flex-row mt-4 gap-3">
-            <TouchableOpacity className="flex-1 flex-col items-center bg-[#FF5F00] rounded-xl p-4">
+            <TouchableOpacity className="flex-1 flex-col items-center bg-[#0c4a6e] rounded-xl p-4">
               <Ionicons name="scan-outline" size={24} color="white" />
               <Text className="font-semibold text-base mt-1 text-white">
                 Scan
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity className="flex-1 flex-col items-center bg-[#EB0071] rounded-xl p-4">
+            <TouchableOpacity className="flex-1 flex-col items-center bg-[#0369a1] rounded-xl p-4">
               <Ionicons name="camera-outline" size={24} color="white" />
               <Text className="font-semibold text-base mt-1 text-white">
                 Photo
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity className="flex-1 flex-col items-center bg-[#00C9A7] rounded-xl p-4">
+            <TouchableOpacity className="flex-1 flex-col items-center bg-[#0891b2] rounded-xl p-4">
               <Ionicons name="add-circle-outline" size={24} color="white" />
               <Text className="font-semibold text-base mt-1 text-white">
                 Create
@@ -170,7 +186,7 @@ const Log = () => {
                 <Ionicons
                   name="remove-circle-outline"
                   size={20}
-                  color="#FF5F00"
+                  color="#0c4a6e"
                 />
               </TouchableOpacity>
               <Text className="font-bold text-lg">{quantity}</Text>
@@ -178,13 +194,13 @@ const Log = () => {
                 onPress={() => adjustQuantity(1)}
                 className="flex-1 bg-gray-200 rounded-xl py-3 items-center"
               >
-                <Ionicons name="add-circle-outline" size={20} color="#00C9A7" />
+                <Ionicons name="add-circle-outline" size={20} color="#0891b2" />
               </TouchableOpacity>
             </View>
 
             <TouchableOpacity
               onPress={() => addToMeal(selectedMeal, selectedFood, quantity)}
-              className="mt-4 bg-blue-600 rounded-xl py-3 items-center"
+              className="mt-4 bg-[#0369a1] rounded-xl py-3 items-center"
             >
               <Text className="text-white font-semibold text-base">
                 Add to {selectedMeal}
@@ -192,6 +208,117 @@ const Log = () => {
             </TouchableOpacity>
           </View>
         )}
+        {/* Water Intake Section */}
+        <View className="mt-6">
+          <Text className="font-bold text-2xl mb-3">Water Intake</Text>
+
+          <LinearGradient
+            colors={["#0e7490", "#0891b2", "#06b6d4"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{
+              borderRadius: 16,
+              padding: 20,
+            }}
+          >
+            <View className="flex-row items-center justify-between mb-4">
+              <View>
+                <Text className="text-white/80 text-xs font-semibold mb-1">
+                  TODAY'S PROGRESS
+                </Text>
+                <Text className="text-white text-4xl font-bold">
+                  {waterIntake}/{waterGoal}
+                </Text>
+                <Text className="text-white/90 text-sm mt-1">
+                  glasses • {waterIntake * 250}ml / {waterGoal * 250}ml
+                </Text>
+              </View>
+
+              <View className="items-center">
+                <View className="bg-white/20 rounded-full p-3 mb-2">
+                  <Ionicons name="water" size={32} color="white" />
+                </View>
+                <Text className="text-white font-bold text-lg">
+                  {waterPercentage}%
+                </Text>
+              </View>
+            </View>
+
+            <View className="w-full h-2 bg-white/30 rounded-full overflow-hidden mb-4">
+              <View
+                style={{
+                  width: `${Math.min(waterPercentage, 100)}%`,
+                  height: "100%",
+                  backgroundColor: "white",
+                  borderRadius: 9999,
+                }}
+              />
+            </View>
+
+            <View className="flex-row flex-wrap gap-2 mb-4">
+              {Array.from({ length: waterGoal }).map((_, index) => (
+                <View
+                  key={index}
+                  className="items-center justify-center"
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 8,
+                    backgroundColor:
+                      index < waterIntake ? "white" : "rgba(255,255,255,0.2)",
+                  }}
+                >
+                  <Ionicons
+                    name={index < waterIntake ? "water" : "water-outline"}
+                    size={20}
+                    color={index < waterIntake ? "#0891b2" : "white"}
+                  />
+                </View>
+              ))}
+            </View>
+
+            <View className="flex-row gap-3">
+              <TouchableOpacity
+                onPress={removeWaterGlass}
+                className="flex-1 bg-white/20 rounded-xl py-3 items-center justify-center"
+                activeOpacity={0.7}
+                disabled={waterIntake === 0}
+                style={{ opacity: waterIntake === 0 ? 0.5 : 1 }}
+              >
+                <Ionicons
+                  name="remove-circle-outline"
+                  size={20}
+                  color="white"
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={addWaterGlass}
+                className="flex-1 bg-white rounded-xl py-3 flex-row items-center justify-center"
+                activeOpacity={0.7}
+                disabled={waterIntake >= waterGoal}
+                style={{ opacity: waterIntake >= waterGoal ? 0.7 : 1 }}
+              >
+                <Ionicons name="add-circle" size={20} color="#0891b2" />
+                <Text
+                  className="font-semibold ml-2"
+                  style={{ color: "#0891b2" }}
+                >
+                  Add Glass
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {waterIntake >= waterGoal && (
+              <View className="mt-3 bg-white/20 rounded-lg p-3 flex-row items-center">
+                <Ionicons name="checkmark-circle" size={20} color="white" />
+                <Text className="text-white font-medium ml-2">
+                  Great job! You've reached your daily goal!
+                </Text>
+              </View>
+            )}
+          </LinearGradient>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

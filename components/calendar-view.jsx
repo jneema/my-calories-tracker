@@ -1,18 +1,38 @@
 import React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 
+const COLORS = {
+  primary: {
+    dark: "#0c4a6e",
+    main: "#0369a1",
+    light: "#0891b2",
+  },
+  accent: {
+    orange: "#f97316",
+    pink: "#ec4899",
+    purple: "#9810FA",
+  },
+  gray: {
+    light: "#E5E7EB",
+    medium: "#9CA3AF",
+    dark: "#4B5563",
+  },
+};
+
 const CalendarView = () => {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
   const today = now.getDate();
 
+  const missedDays = [2, 5, 7]; // Hardcoded missed days
+
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
 
   const screenWidth = Dimensions.get("window").width - 65;
   const numColumns = 7;
-  const gap = 4; // spacing between cells
+  const gap = 4;
   const itemWidth = (screenWidth - gap * (numColumns - 1)) / numColumns;
 
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -37,7 +57,9 @@ const CalendarView = () => {
               },
             ]}
           >
-            <Text style={styles.weekdayText}>{day}</Text>
+            <Text style={[styles.weekdayText, { color: COLORS.gray.dark }]}>
+              {day}
+            </Text>
           </View>
         ))}
       </View>
@@ -46,20 +68,29 @@ const CalendarView = () => {
       <View style={styles.grid}>
         {calendarDays.map((day, index) => {
           let bgColor = "transparent";
-          let textColor = "#4B5563";
+          let textColor = COLORS.gray.dark;
           let fontWeight = "normal";
 
           if (day !== null) {
             if (day < today) {
-              bgColor = "#FF6900"; // past days
-              textColor = "#fff";
+              if (missedDays.includes(day)) {
+                // Missed day
+                bgColor = COLORS.primary.light + "10"; // muted/faded teal
+                textColor = COLORS.primary.dark; // slightly darker text
+              } else {
+                // Logged past day
+                bgColor = COLORS.primary.light + "90"; // faded teal
+                textColor = COLORS.primary.main; // main teal text
+              }
             } else if (day === today) {
-              bgColor = "#2563EB"; // today
+              // Today
+              bgColor = COLORS.primary.main;
               textColor = "#fff";
               fontWeight = "bold";
             } else {
-              bgColor = "#E5E7EB"; // future days
-              textColor = "#4B5563";
+              // Future days
+              bgColor = COLORS.primary.light + "20"; // very faint teal
+              textColor = COLORS.gray.dark;
             }
           }
 
@@ -108,7 +139,6 @@ const styles = StyleSheet.create({
   weekdayText: {
     fontSize: 12,
     fontWeight: "600",
-    color: "#4B5563",
   },
   grid: {
     flexDirection: "row",
