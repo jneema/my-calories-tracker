@@ -4,11 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import useStoredItems from "../../hooks/useStoredItem";
 import FastingModal from "../../components/fasting-modal";
-import CalorieCard from "../../components/home/calorie-card";
 import DailyStats from "../../components/home/daily-stats";
 import Nutrition from "../../components/home/nutrition";
 import QuickActions from "../../components/home/quick-actions";
-import TodaysWorkouts from "../../components/home/todays-workouts";
 import Meals from "../../components/home/meals";
 
 const HomePage = () => {
@@ -96,14 +94,14 @@ const HomePage = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <CalorieCard COLORS={COLORS} storedData={storedData} />
-          <DailyStats COLORS={COLORS} />
+          {/* <CalorieCard COLORS={COLORS} storedData={storedData} /> */}
+          <DailyStats COLORS={COLORS} storedData={storedData}/>
           <Nutrition COLORS={COLORS} />
           <QuickActions
             COLORS={COLORS}
             setShowFastingModal={setShowFastingModal}
           />
-          <TodaysWorkouts COLORS={COLORS} />
+          {/* <TodaysWorkouts COLORS={COLORS} /> */}
           <Meals COLORS={COLORS} />
         </ScrollView>
       </SafeAreaView>
